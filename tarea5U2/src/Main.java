@@ -8,19 +8,22 @@ public class Main {
         System.out.println("Ingresa los datos del rectangulo del rectangulo");
 
         System.out.println("Ingresa la altura del rectangulo");
-        Double alturaUno = sc.nextDouble();
+        double alturaUno = sc.nextDouble();
         //int alturaUno = sc.nextInt();
 
         System.out.println("Ingresa la base del rectangulo");
-        Double ladoUno = sc.nextDouble();
+        double ladoUno = sc.nextDouble();
         //int ladoUno = sc.nextInt();
 
         System.out.println("\nCuadradoUno \n");
-        Cuadrado rectanguloUno = new Cuadrado(ladoUno, alturaUno);
-        System.out.println(rectanguloUno.perimetrorectangulo());
+       Cuadrado rectanguloUno = new Cuadrado(ladoUno, alturaUno);
+       /* System.out.println(rectanguloUno.perimetrorectangulo());
         System.out.println(rectanguloUno.arearectangulo());
         System.out.println("\n \n"+rectanguloUno.perimetrorectangulo());
-        System.out.println(rectanguloUno.arearectangulo());
+        System.out.println(rectanguloUno.arearectangulo());*/
+        rectanguloUno.calcularperimetro(ladoUno, alturaUno);
+        rectanguloUno.calculararea((int) ladoUno,  (int)alturaUno);
+        rectanguloUno.calcularperimetro((int) ladoUno, (int)alturaUno);
 
     }
 }

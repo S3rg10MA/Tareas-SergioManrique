@@ -1,7 +1,7 @@
 public class Cuadrado {
 
-      public  Double ladoUno;
-      public  Double alturaUno;
+        double ladoUno;
+        double alturaUno;
 
 
 
@@ -11,7 +11,7 @@ public class Cuadrado {
             this.alturaUno = alturaUno;
         }
 
-        public String perimetrorectangulo(){
+     /*   public String perimetrorectangulo(){
             return "El perimetro del rectangulo es: "+(this.alturaUno*2+
                     this.ladoUno*2);
 
@@ -29,7 +29,22 @@ public class Cuadrado {
 
                 public String arearectangulo(double ladoUno, double alturaUno){
                     return "El aread del rectangulo es: " + (this.ladoUno * this.alturaUno);
-                }
+                }*/
+
+    public void calcularperimetro(double alturaUno, double ladoUno) {
+        double perimetro = (ladoUno*2 + alturaUno*2);
+        System.out.println("el perimetro del rectangulo es: "+perimetro);
+    }
+    public void calculararea(int alturaUno, int ladoUno) {
+        int area = (ladoUno*alturaUno);
+        System.out.println("el area del rectangulo es: "+area);
+
+    }
+    public void calcularperimetro(int alturaUno, int ladoUno) {
+        int perimetro = (ladoUno*2 + alturaUno*2);
+        System.out.println("El perimetro 2 es: "+perimetro);
+    }
+
             }
 
 
