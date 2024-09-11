@@ -22,8 +22,9 @@ public class Main {
         System.out.println("\n \n"+rectanguloUno.perimetrorectangulo());
         System.out.println(rectanguloUno.arearectangulo());*/
         rectanguloUno.calcularperimetro(ladoUno, alturaUno);
-        rectanguloUno.calculararea((int) ladoUno,  (int)alturaUno);
+        rectanguloUno.calculararea(ladoUno,  alturaUno);
         rectanguloUno.calcularperimetro((int) ladoUno, (int)alturaUno);
+        rectanguloUno.calculararea((int)alturaUno, (int)ladoUno);
 
     }
 }
