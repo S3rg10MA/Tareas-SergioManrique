@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+
 
 public class Curso {
 
@@ -11,37 +11,11 @@ public class Curso {
         this.codigoCurso = codigoCurso;
         this.instructor = instructor;
     }
-    public String getNombreCurso() {
-        return nombreCurso;
-    }
-    public String getCodigoCurso() {
-        return codigoCurso;
-    }
-    public String getInstructor() {
-        return instructor;
-    }
- /*   public String mostrarInfo(){
-        return String.format("Curso: %s, Codigo del Curso: %s, Maestro: %s",
-                nombreCurso, codigoCurso, instructor);
-    }*/
 
 
-    public ArrayList<Curso> listaCursos = new ArrayList<Curso>();
 
-
-    public void registrarCurso(Curso curso){
-        this.listaCursos.add(curso);
-
-    }
-        public void mostrarCurso(){
-            System.out.println("Cursos disponibles:");
-
+        public String mostrarCurso(){
+        return "Materia: "+nombreCurso+ " Codigo: "+codigoCurso+ " Instructor: "+instructor;
         }
-        int iterador =1;
-            for(Curso curso  this.listaCursos) {
 
-        System.out.println("Estes es el curso "+ iteradr);
-        System.out.println(curso.mostrarCurso());
-        iterador++;
-    }
 }
