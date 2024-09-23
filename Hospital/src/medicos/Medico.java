@@ -1,18 +1,16 @@
 package medicos;
 
-import java.util.Random;
-
 public class Medico {
-    public int id;
+    public String idMedico;
     public String nombreDoctor;
     public String apellidoDoctor;
     public String fechaNacimientoDoctor;
     private String telefonoDoctor;
     private String rfc;
-    public Random random = new Random();
 
-    public Medico(String nombreDoctor, String apellidoDoctor, String fechaNacimientoDoctor, String telefonoDoctor, String rfc) {
-        this.id = this.random.nextInt(1, 10001);
+
+    public Medico(String idMedico, String nombreDoctor, String apellidoDoctor, String fechaNacimientoDoctor, String telefonoDoctor, String rfc) {
+        this.idMedico = idMedico;
         this.nombreDoctor = nombreDoctor;
         this.apellidoDoctor = apellidoDoctor;
         this.fechaNacimientoDoctor = fechaNacimientoDoctor;
@@ -20,9 +18,35 @@ public class Medico {
         this.rfc = rfc;
     }
 
+    public String getId() {
+        return idMedico;
+    }
+
+    public String getNombreDoctor() {
+        return nombreDoctor;
+    }
+
+    public String getApellidoDoctor() {
+        return apellidoDoctor;
+    }
+
+    public String getFechaNacimientoDoctor() {
+        return fechaNacimientoDoctor;
+    }
+
+    public String getTelefonoDoctor() {
+        return telefonoDoctor;
+    }
+
+    public String getRfc() {
+        return rfc;
+    }
+
+
+
     public String informacionDoctor() {
-        return String.format("Id: %d. Nombre del Doctor: %s, Apellido: %s, Fecha de Nacimiento: %s, " +
-                "Telefono: %s, RFC. del doctor: %s", id, nombreDoctor,apellidoDoctor,
+        return String.format("Id: %s, Nombre del Doctor: %s, Apellido: %s, Fecha de Nacimiento: %s, " +
+                        "Telefono: %s, RFC. del doctor: %s", idMedico, nombreDoctor,apellidoDoctor,
                 fechaNacimientoDoctor,telefonoDoctor,rfc);
     }
 }

@@ -3,19 +3,19 @@ package consultorios;
 import java.util.Random;
 
 public class Consultorio {
-    public int id;
+    public String idConsultorio;
     public int piso;
     public int numeroConsultorio;
     public Random random = new Random();
 
-    public Consultorio(int piso, int numeroConsultorio) {
-        this.id = this.random.nextInt(1, 10001);
+    public Consultorio(String idConsultorio,int piso, int numeroConsultorio) {
+        this.idConsultorio = idConsultorio;
         this.piso = piso;
         this.numeroConsultorio = numeroConsultorio;
     }
 
-    public int getId() {
-        return id;
+    public String getIdConsultorio() {
+        return idConsultorio;
     }
 
     public int getPiso() {
@@ -27,7 +27,7 @@ public class Consultorio {
     }
 
     public String datosConsultorio() {
-        return String.format("Id del Consultorio: %d, Piso: %d, Numero del Consultorio: %d",
-                id, piso, numeroConsultorio);
+        return String.format("Id del Consultorio: %s, Piso: %d, Numero del Consultorio: %d",
+                idConsultorio, piso, numeroConsultorio);
     }
 }

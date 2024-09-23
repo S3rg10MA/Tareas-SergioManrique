@@ -41,4 +41,8 @@ public class Consultas {
     public Consultorio getConsultorioNumero() {
         return consultorioNumero;
     }
+
+    public String mostrarConsulta() {
+        return String.format("Fecha: %s, Paciente: %s, Medico: %s, Num.Consultorio: %d", fechaHora, pacienteNombre, medicoNombre, consultorioNumero);
+    }
 }
