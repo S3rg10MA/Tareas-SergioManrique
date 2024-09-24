@@ -124,6 +124,10 @@ public class Hospital {
         return String.format("C%d%d%d%d",longitudanoMasUno,diaActual,mesActual,numeroAleatorio);
     }
 
+    public Paciente obtenerpacienteporId(String idPaciente){
+        return listaPacientes.stream().filter(paciente -> paciente.getId().equals(idPaciente)).findFirst().get();
+    }
+
     public void mostrarPacienteporID(String idPaciente){
 
         /*Optional<Paciente> pacienteencontrado = this.listaPacientes.stream().filter(paciente -> paciente.getId().equals(id).findFirst());

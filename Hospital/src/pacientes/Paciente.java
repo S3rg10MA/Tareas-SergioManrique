@@ -1,18 +1,19 @@
 package pacientes;
 
+import java.time.LocalDate;
 import java.util.Random;
 
 public class Paciente {
     public String id;
     public String nombre;
     public String apellido;
-    public String fechaNacimiento;
+    public LocalDate fechaNacimiento;
     private String telefono;
     public String tipoSangre;
     public char sexo;
     public Random random = new Random();
 
-    public Paciente(String id, String nombre, String apellido, String fechaNacimiento, String telefono, String tipoSangre, Character sexo) {
+    public Paciente(String id, String nombre, String apellido, LocalDate fechaNacimiento, String telefono, String tipoSangre, Character sexo) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -34,7 +35,7 @@ public class Paciente {
         return apellido;
     }
 
-    public String getFechaNacimiento() {
+    public LocalDate getFechaNacimiento() {
         return fechaNacimiento;
     }
 

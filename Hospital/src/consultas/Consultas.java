@@ -4,17 +4,18 @@ import consultorios.Consultorio;
 import medicos.Medico;
 import pacientes.Paciente;
 
+import java.time.LocalDateTime;
 import java.util.Random;
 
 public class Consultas {
     public int id;
-    public String fechaHora;
+    public LocalDateTime fechaHora;
     public Paciente pacienteNombre;
     public Medico medicoNombre;
     public Consultorio consultorioNumero;
     public Random random = new Random();
 
-    public Consultas(String fechaHora, Paciente paciente, Medico medico, Consultorio consultorio) {
+    public Consultas(LocalDateTime fechaHora, Paciente paciente, Medico medico, Consultorio consultorio) {
         this.id = this.random.nextInt(1, 10001);
         this.fechaHora = fechaHora;
         this.pacienteNombre = paciente;
@@ -26,7 +27,7 @@ public class Consultas {
         return id;
     }
 
-    public String getFechaHora() {
+    public LocalDateTime getFechaHora() {
         return fechaHora;
     }
 

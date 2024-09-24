@@ -4,6 +4,8 @@ import hospital.Hospital;
 import medicos.Medico;
 import pacientes.Paciente;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Scanner;
 
 public class Main {
@@ -43,8 +45,14 @@ public class Main {
                     String nombre = sc.next();
                     System.out.println("Ingresa el Apellido del Paciente");
                     String apellido = sc.next();
-                    System.out.println("Ingresa la fecha de Nacimiento del Paciente");
-                    String fechaNacimiento = sc.next();
+                    System.out.println("Ingresa el año de nacimiento del paciente");
+                    int anio = sc.nextInt();
+                    System.out.println("Ingresa el mes de nacimiento del paciente");
+                    int mes = sc.nextInt();
+                    System.out.println("Ingresa el dia de nacimiento del paciente");
+                    int dia = sc.nextInt();
+
+                    LocalDate fechaNacimiento = LocalDate.of(anio, mes, dia);
                     System.out.println("Ingresa el Numero de Telefono del Paciente");
                     String telefono = sc.next();
                     System.out.println("Ingresa el tipo de sangre del Paciente");
@@ -69,14 +77,19 @@ public class Main {
                     String nombreDoctor = sc.next();
                     System.out.println("Ingresa el Apellido del doctor");
                     String apellidoDoctor = sc.next();
-                    System.out.println("Ingresa la fecha de Nacimiento del doctor");
-                    String fechaNacDoctor = sc.next();
+                    System.out.println("Ingresa el año de nacimiento del medico");
+                    int aniodoc = sc.nextInt();
+                    System.out.println("Ingresa el mes de nacimiento del medico");
+                    int mesdoc = sc.nextInt();
+                    System.out.println("Ingresa el dia de nacimiento del paciente");
+                    int diadoc = sc.nextInt();
+                    LocalDate fechaNacDoctor = LocalDate.of(aniodoc, mesdoc, diadoc);
                     System.out.println("Ingresa el Numero de Telefono del doctor");
                     String telefonoDoctor = sc.next();
                     System.out.println("Ingresa el RFC del doctor");
                     String rfc = sc.next();
 
-                    String idMedico = hospital.generarIdMedico(apellidoDoctor, fechaNacDoctor);
+                    String idMedico = hospital.generarIdMedico(apellidoDoctor, String.valueOf(fechaNacDoctor));
                     // Medico medico = new Medico(idMedico,nombreDoctor, apellidoDoctor, fechaNacDoctor, telefonoDoctor, rfc);
                     Medico medico = new Medico(idMedico, nombreDoctor,apellidoDoctor,fechaNacDoctor,telefonoDoctor,rfc);
                     hospital.registrarMedico(medico);
@@ -105,8 +118,17 @@ public class Main {
                     break;
                 case 7:
                     System.out.println("Ingresa los datos de la consulta");
-                    System.out.println("Ingresa la Fecha y Hora");
-                    String fechaHora = sc.next();
+                    System.out.println("Ingresa el dia de la consulta deseada");
+                    int diaconsulta = sc.nextInt();
+                    System.out.println("Ingresa el mes de la consulta");
+                    int mesconsulta = sc.nextInt();
+                    System.out.println("Ingresa el ano de la consulta");
+                    int anoconsulta = sc.nextInt();
+                    System.out.println("Ingresa la hora de la consulta");
+                    int horaconsulta = sc.nextInt();
+                    System.out.println("Ingresa los minutos de la consulta");
+                    int minutosconsulta = sc.nextInt();
+
                     System.out.println("Ingresa el nombre del Paciente");
                     String pacienteNombre = sc.next();
                     System.out.println("Ingresa el nombre del medico");
@@ -114,6 +136,8 @@ public class Main {
                     System.out.println("Ingresa el numero del consultorio");
                     int consultorioNumero = sc.nextInt();
 
+                    LocalDateTime fechaconsulta = LocalDateTime.of(anoconsulta, mesconsulta, diaconsulta, horaconsulta, minutosconsulta);
+                    System.out.println();
                                         /*    Consultas consultas = new Consultas(fechaHora,pacienteNombre,medicoNombre,consultorioNumero);
                                             hospital.registrarConsulta(consultas);
                                             System.out.println("Consulta registrada correctamente");*/
