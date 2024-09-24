@@ -28,18 +28,22 @@ public class Consultas {
     }
 
     public LocalDateTime getFechaHora() {
+
         return fechaHora;
     }
 
     public Paciente getPacienteNombre() {
+
         return pacienteNombre;
     }
 
     public Medico getMedicoNombre() {
+
         return medicoNombre;
     }
 
     public Consultorio getConsultorioNumero() {
+
         return consultorioNumero;
     }
 

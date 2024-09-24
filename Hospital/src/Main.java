@@ -6,10 +6,11 @@ import pacientes.Paciente;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
+    public void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
         Hospital hospital = new Hospital();
@@ -129,21 +130,29 @@ public class Main {
                     System.out.println("Ingresa los minutos de la consulta");
                     int minutosconsulta = sc.nextInt();
 
-                    System.out.println("Ingresa el nombre del Paciente");
+
+
+                    System.out.println("Ingresa el nombre del Paciente:");
                     String pacienteNombre = sc.next();
+
+
+
                     System.out.println("Ingresa el nombre del medico");
                     String medicoNombre = sc.next();
+
                     System.out.println("Ingresa el numero del consultorio");
                     int consultorioNumero = sc.nextInt();
 
-                    LocalDateTime fechaconsulta = LocalDateTime.of(anoconsulta, mesconsulta, diaconsulta, horaconsulta, minutosconsulta);
+
+                    LocalDateTime fechaHora = LocalDateTime.of(anoconsulta, mesconsulta, diaconsulta, horaconsulta, minutosconsulta);
                     System.out.println();
-                                        /*    Consultas consultas = new Consultas(fechaHora,pacienteNombre,medicoNombre,consultorioNumero);
-                                            hospital.registrarConsulta(consultas);
-                                            System.out.println("Consulta registrada correctamente");*/
+                                           // Consultas consultas = new Consultas(fechaHora,pacienteNombre,medicoNombre,consultorioNumero);
+                                        //    hospital.registrarConsulta(consultas);
+                                            System.out.println("Consulta registrada correctamente");
                     break;
                 case 8:
                     System.out.println("Datos de la Consulta");
+                    hospital.mostrarConsultas();
                     break;
                 case 9:
                     System.out.println("\nMostrar Paciente");

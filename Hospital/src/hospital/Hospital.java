@@ -125,10 +125,21 @@ public class Hospital {
     }
 
     public Paciente obtenerpacienteporId(String idPaciente){
-        return listaPacientes.stream().filter(paciente -> paciente.getId().equals(idPaciente)).findFirst().get();
+        return listaPacientes.stream().filter(paciente -> paciente.getId().equals(idPaciente)).findFirst().orElse(null);
     }
 
     public void mostrarPacienteporID(String idPaciente){
+
+        Paciente paciente = obtenerpacienteporId(idPaciente);
+        if(paciente != null){
+            System.out.println(paciente.mostrarDatosPaciente());
+        }else{
+            System.out.println("Paciente no encontrado");
+        }
+
+
+
+
 
         /*Optional<Paciente> pacienteencontrado = this.listaPacientes.stream().filter(paciente -> paciente.getId().equals(id).findFirst());
         if(pacienteencontrado.isPresent()){
@@ -136,12 +147,12 @@ public class Hospital {
         }else {
             System.out.println("No se encontro el paciente");
         }*/
-        Optional<Paciente> pacienteEncontrado = this.listaPacientes.stream().filter(paciente -> paciente.getId().equals(idPaciente)).findFirst();
+        /*Optional<Paciente> pacienteEncontrado = this.listaPacientes.stream().filter(paciente -> paciente.getId().equals(idPaciente)).findFirst();
         if (pacienteEncontrado.isPresent()){
             System.out.println(pacienteEncontrado.get().mostrarDatosPaciente());
         }else {
             System.out.println("Paciente no encontrado");
-        }
+        }*/
 /*        for(Paciente paciente : this.listaPacientes){
             if(paciente.getId().equals(idPaciente)){
                 System.out.println(paciente.mostrarDatosPaciente());
