@@ -34,14 +34,14 @@ public class Hospital {
 
         //No exista una consulta en la fecha y consultorio deseado
         if(!validador.validarDisponibilidadEnFechaConsulta(consulta.getFechaHora(),
-                consulta.getConsultorioNumero().getNumeroConsultorio(),this.listaConsultas)){
+                consulta.getConsultorioId().getNumeroConsultorio(),this.listaConsultas)){
             System.out.println("Ya existe una consuta registrada para esa fecha");
             return;
         }
 
         //validar disponibilidad del medico
         //if(!validador.validarDisponibilidadMedico(consulta.getFechaHora(),consulta.getMedicoNombre().getIdMedico(),this.listaConsultas))
-        if(!validador.validarDisponibilidadMedico(consulta.getFechaHora(),consulta.getMedicoNombre().getId(),this.listaConsultas)){
+        if(!validador.validarDisponibilidadMedico(consulta.getFechaHora(),consulta.getMedicoId().getId(),this.listaConsultas)){
             System.out.println("El medico no tiene disponibilidad en esa fecha");
             return;
         }
@@ -124,6 +124,12 @@ public class Hospital {
         return String.format("C%d%d%d%d",longitudanoMasUno,diaActual,mesActual,numeroAleatorio);
     }
 
+    public String generarIdConsultas(){
+        int diaActual = LocalDate.now().getDayOfMonth();
+        int numeroAleatorio = new Random().nextInt( 100000 - 50)+ 50;
+        return String.format("CO-d%-d%-d%-", listaConsultorios.size() +1 ,numeroAleatorio, diaActual);
+    }
+
     public Paciente obtenerpacienteporId(String idPaciente){
         return listaPacientes.stream().filter(paciente -> paciente.getId().equals(idPaciente)).findFirst().orElse(null);
     }
@@ -161,15 +167,25 @@ public class Hospital {
         }
         System.out.println("Paciente no encontrado");*/
     }
+    public Medico obtenerMedicoPorID(String IdMedico){
+        return listaMedicos.stream().filter(medico -> medico.getId().equals(IdMedico)).findFirst().orElse(null);
+    }
 
     public void mostrarMedicoporID(String IdMedico){
-        Optional<Medico> medicoEncontrado = this.listaMedicos.stream().filter(medico -> medico.getId().equals(IdMedico)).findFirst();
+
+        Medico medico = obtenerMedicoPorID(IdMedico);
+        if (medico != null){
+            System.out.println(medico.informacionDoctor());
+        }else{
+            System.out.println("Medico no encontrado");
+        }
+      /*  Optional<Medico> medicoEncontrado = this.listaMedicos.stream().filter(medico -> medico.getId().equals(IdMedico)).findFirst();
         if (medicoEncontrado.isPresent()){
             System.out.println(medicoEncontrado.get().informacionDoctor());
         }else{
             System.out.println("No se encontro ningun medico con ese Id: ");
         }
-    }
+  */  }
 
     public void mostrarConsultorioporID(String IdConsultorio){
         Optional<Consultorio> consultorioEncontrado = this.listaConsultorios.stream().filter(consultorio -> consultorio.getIdConsultorio().equals(IdConsultorio)).findFirst();

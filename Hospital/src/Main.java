@@ -132,16 +132,16 @@ public class Main {
 
 
 
-                    System.out.println("Ingresa el nombre del Paciente:");
-                    String pacienteNombre = sc.next();
+                    System.out.println("Ingresa el Id  del Paciente:");
+                    String pacienteIde = sc.next();
 
 
 
-                    System.out.println("Ingresa el nombre del medico");
-                    String medicoNombre = sc.next();
+                    System.out.println("Ingresa el Id del medico");
+                    String medicoId = sc.next();
 
-                    System.out.println("Ingresa el numero del consultorio");
-                    int consultorioNumero = sc.nextInt();
+                    System.out.println("Ingresa el Id del consultorio");
+                    int consultorioId = sc.nextInt();
 
 
                     LocalDateTime fechaHora = LocalDateTime.of(anoconsulta, mesconsulta, diaconsulta, horaconsulta, minutosconsulta);

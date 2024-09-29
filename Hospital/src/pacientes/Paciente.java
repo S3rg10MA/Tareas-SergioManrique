@@ -2,6 +2,7 @@ package pacientes;
 
 import java.time.LocalDate;
 import java.util.Random;
+//Sergio Manrique
 
 public class Paciente {
     public String id;

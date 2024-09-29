@@ -10,17 +10,17 @@ import java.util.Random;
 public class Consultas {
     public int id;
     public LocalDateTime fechaHora;
-    public Paciente pacienteNombre;
-    public Medico medicoNombre;
-    public Consultorio consultorioNumero;
+    public Paciente pacienteId;
+    public Medico medicoId;
+    public Consultorio consultorioId;
     public Random random = new Random();
 
-    public Consultas(LocalDateTime fechaHora, Paciente paciente, Medico medico, Consultorio consultorio) {
+    public Consultas(LocalDateTime fechaHora, Paciente pacienteId, Medico medicoId, Consultorio consultorioId) {
         this.id = this.random.nextInt(1, 10001);
         this.fechaHora = fechaHora;
-        this.pacienteNombre = paciente;
-        this.medicoNombre = medico;
-        this.consultorioNumero = consultorio;
+        this.pacienteId = pacienteId;
+        this.medicoId = medicoId;
+        this.consultorioId = consultorioId;
     }
 
     public int getId() {
@@ -32,22 +32,22 @@ public class Consultas {
         return fechaHora;
     }
 
-    public Paciente getPacienteNombre() {
+    public Paciente getPacienteId() {
 
-        return pacienteNombre;
+        return pacienteId;
     }
 
-    public Medico getMedicoNombre() {
+    public Medico getMedicoId() {
 
-        return medicoNombre;
+        return medicoId;
     }
 
-    public Consultorio getConsultorioNumero() {
+    public Consultorio getConsultorioId() {
 
-        return consultorioNumero;
+        return consultorioId;
     }
 
     public String mostrarConsulta() {
-        return String.format("Fecha: %s, Paciente: %s, Medico: %s, Num.Consultorio: %d", fechaHora, pacienteNombre, medicoNombre, consultorioNumero);
+        return String.format("Fecha: %s, Paciente: %s, Medico: %s, Num.Consultorio: %d", fechaHora, pacienteId, medicoId, consultorioId);
     }
 }
