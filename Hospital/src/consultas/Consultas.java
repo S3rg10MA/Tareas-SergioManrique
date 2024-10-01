@@ -6,25 +6,25 @@ import pacientes.Paciente;
 
 import java.time.LocalDateTime;
 import java.util.Random;
-
+//Sergio Manrique
 public class Consultas {
-    public int id;
+    public String idConsulta;
     public LocalDateTime fechaHora;
-    public Paciente pacienteId;
-    public Medico medicoId;
-    public Consultorio consultorioId;
-    public Random random = new Random();
+    public Paciente paciente;
+    public Medico medico;
+    public Consultorio consultorio;
 
-    public Consultas(LocalDateTime fechaHora, Paciente pacienteId, Medico medicoId, Consultorio consultorioId) {
-        this.id = this.random.nextInt(1, 10001);
+
+    public Consultas(String idConsulta, LocalDateTime fechaHora, Paciente paciente, Medico medico, Consultorio consultorio) {
+        this.idConsulta = idConsulta;
         this.fechaHora = fechaHora;
-        this.pacienteId = pacienteId;
-        this.medicoId = medicoId;
-        this.consultorioId = consultorioId;
+        this.paciente = paciente;
+        this.medico = medico;
+        this.consultorio = consultorio;
     }
 
-    public int getId() {
-        return id;
+    public String getIdConsulta() {
+        return idConsulta;
     }
 
     public LocalDateTime getFechaHora() {
@@ -32,22 +32,23 @@ public class Consultas {
         return fechaHora;
     }
 
-    public Paciente getPacienteId() {
+    public Paciente getPaciente() {
 
-        return pacienteId;
+        return paciente;
     }
 
-    public Medico getMedicoId() {
+    public Medico getMedico() {
 
-        return medicoId;
+        return medico;
     }
 
-    public Consultorio getConsultorioId() {
+    public Consultorio getConsultorio() {
 
-        return consultorioId;
+        return consultorio;
     }
 
     public String mostrarConsulta() {
-        return String.format("Fecha: %s, Paciente: %s, Medico: %s, Num.Consultorio: %d", fechaHora, pacienteId, medicoId, consultorioId);
+        return String.format("Id: %s, Fecha: %s, Id Paciente: %s, nombre Paciente: %s, Id Medico: %s, Nombre Medico: %s, Num.Consultorio: %d, Piso Consultorio %d",
+                idConsulta,fechaHora, paciente.getId(), paciente.getNombre(), medico.getId(), medico.getNombreDoctor(),consultorio.getNumeroConsultorio(), consultorio.getPiso());
     }
 }

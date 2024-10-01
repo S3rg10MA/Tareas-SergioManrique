@@ -7,7 +7,7 @@ public class Consultorio {
     public int piso;
     public int numeroConsultorio;
     public Random random = new Random();
-//Sergio Manrique
+//Sergio
     public Consultorio(String idConsultorio,int piso, int numeroConsultorio) {
         this.idConsultorio = idConsultorio;
         this.piso = piso;

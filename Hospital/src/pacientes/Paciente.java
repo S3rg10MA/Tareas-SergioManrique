@@ -2,7 +2,7 @@ package pacientes;
 
 import java.time.LocalDate;
 import java.util.Random;
-//Sergio Manrique
+//Sergio
 
 public class Paciente {
     public String id;
@@ -58,7 +58,7 @@ public class Paciente {
 
     public String mostrarDatosPaciente() {
         String datos= String.format("Id del Paciente: %s, Paciente: %s, Apellidos: %s, Fecha de Nacimiento: %s Sexo: %s," +
-                "Telefono: %s, Tipo de Sangre: %s", id, nombre, apellido, fechaNacimiento,sexo, telefono, tipoSangre);
+                " Telefono: %s, Tipo de Sangre: %s", id, nombre, apellido, fechaNacimiento, sexo, telefono, tipoSangre);
         return datos;
     }
 }
