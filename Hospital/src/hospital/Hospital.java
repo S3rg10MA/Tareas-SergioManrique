@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.Random;
-//
+//Sergio
 public class Hospital {
     public ArrayList<Paciente> listaPacientes = new ArrayList<>();
 
@@ -58,7 +58,7 @@ public class Hospital {
 
     public void mostrarPacientes(){
         int iterador=1;
-        System.out.println("\n Pacientes del Hospital");
+        System.out.println("\n--Pacientes del Hospital--");
         for(Paciente paciente : this.listaPacientes){
             System.out.println("Este es el paciente" + iterador);
             System.out.println(paciente.mostrarDatosPaciente());
@@ -68,7 +68,7 @@ public class Hospital {
 
     public void mostrarMedicos(){
         int iterador=1;
-        System.out.println("\n Medicos del Hospital");
+        System.out.println("\n-- Medicos del Hospital--");
         for(Medico medico : this.listaMedicos){
             System.out.println("Este es el medico" + iterador);
             System.out.println(medico.informacionDoctor());
@@ -77,7 +77,7 @@ public class Hospital {
     }
     public void mostrarConsultorios(){
         int iterador=1;
-        System.out.println("\n Consultorios del Hospital");
+        System.out.println("\n--Consultorios del Hospital--");
         for(Consultorio consultorio : this.listaConsultorios){
             System.out.println("Este es el consultorio" + iterador);
             System.out.println(consultorio.datosConsultorio());

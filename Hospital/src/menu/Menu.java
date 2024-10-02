@@ -9,7 +9,7 @@ import pacientes.Paciente;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Scanner;
-//
+//Sergio
 public class Menu {
     private Scanner sc = new Scanner(System.in);
     private Hospital hospital = new Hospital();
@@ -17,6 +17,8 @@ public class Menu {
     private final String CONTRASENIA = "12345";
     private static final String USUARIO_MEDICO = "ale123";
     private final String CONTRASENIA_MEDICO = "12345*";
+    private static final String USUARIO_ADMINISTRADOR = "admin123";
+    private final String CONTRASENIA_ADMINISTRADOR = "54321*";
 
     public void login(){
         int intentosMaximos=5, intentosUsuario = 0;
@@ -42,13 +44,13 @@ public class Menu {
                 intentosUsuario = mostrarErrorInicioSesion(intentosUsuario);
             }
 
-            if (usuario.equals(this.USUARIO) && contrasenia.equals(this.CONTRASENIA)){
+             if (usuario.equals(this.USUARIO_ADMINISTRADOR) && contrasenia.equals(this.CONTRASENIA_ADMINISTRADOR)){
                 System.out.println("\nInicio de sesion exitoso");
-                this.mostrarMenu();
+                this.mostrarMenuAndimistrador();
+                intentosUsuario = 0;
             }else {
                 intentosUsuario = mostrarErrorInicioSesion(intentosUsuario);
-                //System.out.println("Usuario o contrasenia incorrecto");
-                //intentosUsuaio ++;
+
             }
         }
         System.out.println("Intentos maximos permitidos alcanzados");
@@ -68,12 +70,21 @@ public class Menu {
 
             System.out.println("Selecciona una opcion");
             opcion = sc.nextInt();
+
+            switch (opcion){
+                case 1:
+                    hospital.mostrarConsultas();
+                    break;
+                    case 2:
+                        System.out.println("Hasta Luego");
+                        return;
+            }
         }
     }
     private void mostrarMenuMedico(){
         int opcion=0;
         while(opcion != 3){
-            System.out.println("** Sistema Hospital **");
+            System.out.println("\n** Sistema Hospital **");
             System.out.println("1. Ver mis consultas");
             System.out.println("2. Ver mis pacientes");
             System.out.println("3. Consutar paciente");
@@ -81,14 +92,25 @@ public class Menu {
 
             System.out.println("Selecciona una opcion");
             opcion = sc.nextInt();
+
+            switch (opcion){
+                case 1:
+                    hospital.mostrarConsultas();
+                    break;
+                    case 2:
+                        hospital.mostrarPacientes();
+                        break;
+                        case 3:
+                            break;
+                            case 4:
+                                System.out.println("Hasta luego");
+                                return;
+            }
         }
 
     }
 
-    public void mostrarMenu() {
-
-
-
+    private void mostrarMenuAndimistrador() {
 
         int opcion=0;
 

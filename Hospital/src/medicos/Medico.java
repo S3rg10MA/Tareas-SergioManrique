@@ -10,7 +10,7 @@ public class Medico {
     private String telefonoDoctor;
     private String rfc;
 
-//
+//Sergio
     public Medico(String idMedico, String nombreDoctor, String apellidoDoctor, LocalDate fechaNacimientoDoctor, String telefonoDoctor, String rfc) {
         this.idMedico = idMedico;
         this.nombreDoctor = nombreDoctor;

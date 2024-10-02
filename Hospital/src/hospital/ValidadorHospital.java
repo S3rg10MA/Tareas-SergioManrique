@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class ValidadorHospital {
 
-//
+//Sergio
     public boolean validarDisponibilidadEnFechaConsulta(LocalDateTime fechaDeseada, int numeroConsultorio, ArrayList<Consultas> listaConsultas) {
 
 
