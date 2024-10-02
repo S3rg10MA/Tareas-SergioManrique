@@ -6,7 +6,7 @@ import pacientes.Paciente;
 
 import java.time.LocalDateTime;
 import java.util.Random;
-//Sergio Manrique
+//
 public class Consultas {
     public String idConsulta;
     public LocalDateTime fechaHora;

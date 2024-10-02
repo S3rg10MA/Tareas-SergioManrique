@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.Random;
-//Sergio Manrique
+//
 public class Hospital {
     public ArrayList<Paciente> listaPacientes = new ArrayList<>();
 
