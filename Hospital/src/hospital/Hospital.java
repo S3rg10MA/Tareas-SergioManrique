@@ -2,14 +2,12 @@ package hospital;
 
 import consultas.Consultas;
 import consultorios.Consultorio;
-import medicos.Medico;
-import pacientes.Paciente;
+import usuarios.medicos.Medico;
+import usuarios.pacientes.Paciente;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Optional;
 import java.util.Random;
 //Sergio
 public class Hospital {
@@ -135,7 +133,7 @@ public class Hospital {
         int numeroAleatorio = random.nextInt(1, 100000);
         int longitudMasUno = this.listaConsultorios.size() + 1;
         return String.format("CO%d%d%d", longitudMasUno,diaActual,numeroAleatorio);
-        //return String.format("CO%d%d%d%", longitudMasUno,numeroAleatorio,diaActual);
+
     }
 
     public Paciente obtenerpacienteporId(String idPaciente){
@@ -174,7 +172,7 @@ public class Hospital {
         }
     }
     public Medico obtenertelefonoMedico(String telefonoDoctor){
-        return listaMedicos.stream().filter(medico -> medico.getTelefonoDoctor().equals(telefonoDoctor)).findFirst().orElse(null);
+        return listaMedicos.stream().filter(medico -> medico.getTelefono().equals(telefonoDoctor)).findFirst().orElse(null);
     }
     public boolean telefonoMedico(String telefonoDoctor){
         Medico medico = obtenertelefonoMedico(telefonoDoctor);
@@ -201,6 +199,18 @@ public class Hospital {
             System.out.println("Consultorio no encontrado");
         }
     }
+    public Consultas obtenerConsultasporID(String IdConsultas){
+        return listaConsultas.stream().filter(consultas -> consultas.getIdConsulta().equals(IdConsultas)).findFirst().orElse(null);
+    }
+    public void mostrarConsultasporID(String IdConsultas){
+        Consultas consultas = obtenerConsultasporID(IdConsultas);
+        if(consultas != null){
+            System.out.println(consultas.mostrarConsulta());
+        }else{
+            System.out.println("Consulta no encontrada");
+        }
+    }
+
 
     public boolean validarFechaConsulta(LocalDateTime fechaDeseada){
         return this.validador.validarFechaCorrecta(fechaDeseada);

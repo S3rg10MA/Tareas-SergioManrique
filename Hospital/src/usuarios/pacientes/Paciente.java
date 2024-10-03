@@ -1,25 +1,20 @@
-package pacientes;
+package usuarios.pacientes;
+
+import usuarios.Usuario;
+import usuarios.utils.Rol;
 
 import java.time.LocalDate;
 import java.util.Random;
 //Sergio
 
-public class Paciente {
-    public String id;
-    public String nombre;
-    public String apellido;
-    public LocalDate fechaNacimiento;
-    private String telefono;
+public class Paciente extends Usuario {
+
     public String tipoSangre;
     public char sexo;
     public Random random = new Random();
 
-    public Paciente(String id, String nombre, String apellido, LocalDate fechaNacimiento, String telefono, String tipoSangre, Character sexo) {
-        this.id = id;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.fechaNacimiento = fechaNacimiento;
-        this.telefono = telefono;
+    public Paciente(String id, String nombre, String apellido, LocalDate fechaNacimiento, String telefono, String tipoSangre, Character sexo, String contrasenia) {
+        super(id, nombre, apellido, fechaNacimiento, telefono,contrasenia ,Rol.PACIENTE);
         this.tipoSangre = tipoSangre;
         this.sexo = sexo;
     }

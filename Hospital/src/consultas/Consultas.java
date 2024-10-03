@@ -1,11 +1,11 @@
 package consultas;
 
 import consultorios.Consultorio;
-import medicos.Medico;
-import pacientes.Paciente;
+import usuarios.medicos.Medico;
+import usuarios.pacientes.Paciente;
 
 import java.time.LocalDateTime;
-import java.util.Random;
+
 //Sergio
 public class Consultas {
     public String idConsulta;
@@ -49,6 +49,6 @@ public class Consultas {
 
     public String mostrarConsulta() {
         return String.format("Id: %s, Fecha: %s, Id Paciente: %s, nombre Paciente: %s, Id Medico: %s, Nombre Medico: %s, Num.Consultorio: %d, Piso Consultorio %d",
-                idConsulta,fechaHora, paciente.getId(), paciente.getNombre(), medico.getId(), medico.getNombreDoctor(),consultorio.getNumeroConsultorio(), consultorio.getPiso());
+                idConsulta,fechaHora, paciente.getId(), paciente.getNombre(), medico.getId(), medico.getNombre(),consultorio.getNumeroConsultorio(), consultorio.getPiso());
     }
 }

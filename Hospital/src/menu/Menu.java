@@ -3,8 +3,8 @@ package menu;
 import consultas.Consultas;
 import consultorios.Consultorio;
 import hospital.Hospital;
-import medicos.Medico;
-import pacientes.Paciente;
+import usuarios.medicos.Medico;
+import usuarios.pacientes.Paciente;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -23,7 +23,7 @@ public class Menu {
     public void login(){
         int intentosMaximos=5, intentosUsuario = 0;
         while(intentosUsuario < intentosMaximos){
-            System.out.println("Bienvenido");
+            System.out.println("\n**Bienvenido**\n");
             System.out.println("Inicia sesion para continuar");
             System.out.println("Ingrese su usuario");
             String usuario = sc.next();
@@ -63,8 +63,8 @@ public class Menu {
 
     private void mostrarMenuPaciente(){
         int opcion=0;
-        while(opcion != 3){
-            System.out.println("** Sistema Hospital **");
+        while(opcion != 2){
+            System.out.println("\n** Sistema Hospital **\n");
             System.out.println("1. Ver mis consultas");
             System.out.println("2. Salir");
 
@@ -73,9 +73,12 @@ public class Menu {
 
             switch (opcion){
                 case 1:
-                    hospital.mostrarConsultas();
+                    System.out.println("Ingresa el Id de la consulta");
+                    String IdConsulta = sc.next();
+                    hospital.mostrarConsultasporID(IdConsulta);
+
                     break;
-                    case 2:
+                        default:
                         System.out.println("Hasta Luego");
                         return;
             }
@@ -83,10 +86,10 @@ public class Menu {
     }
     private void mostrarMenuMedico(){
         int opcion=0;
-        while(opcion != 3){
-            System.out.println("\n** Sistema Hospital **");
+        while(opcion != 4){
+            System.out.println("\n** Sistema Hospital **\n");
             System.out.println("1. Ver mis consultas");
-            System.out.println("2. Ver mis pacientes");
+            System.out.println("2. Ver mis usuarios.medicos.pacientes");
             System.out.println("3. Consutar paciente");
             System.out.println("4. Salir");
 
@@ -135,7 +138,7 @@ public class Menu {
 
             switch (opcion){
                 case 1:
-                    //P-{a;o actual}-{mes actual}-{longitus pacientes +1}-{1,100000}
+                    //P-{a;o actual}-{mes actual}-{longitus usuarios.medicos.pacientes +1}-{1,100000}
 
                     String id = hospital.generarIdPaciente();
 
@@ -159,6 +162,9 @@ public class Menu {
                         System.out.println("Ingresa el Numero de Telefono del Paciente");
                         telefono = sc.next();
 
+                        System.out.println("Ingresa tu contrasenia");
+                        String contrasenia = sc.next();
+
                         if(hospital.telefonoPaciente(telefono)){
                             System.out.println("ingresa otro numero, ya que este ya esta registrado");
                             telefono = null;
@@ -172,7 +178,7 @@ public class Menu {
                     System.out.println("Ingresa el sexo del Paciente");
                     char sexo = sc.next().charAt(0);
 
-                    Paciente paciente = new Paciente(id,nombre, apellido, fechaNacimiento, telefono, tipoSangre, sexo);
+                    Paciente paciente = new Paciente(id,nombre, apellido, fechaNacimiento, telefono, tipoSangre, sexo, CONTRASENIA);
                     hospital.registrarPaciente(paciente);
                     System.out.println("Datos del Paciente registrados Correctamente");
                     break;
