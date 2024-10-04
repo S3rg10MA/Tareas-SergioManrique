@@ -6,7 +6,7 @@ import usuarios.pacientes.Paciente;
 
 import java.time.LocalDateTime;
 
-//Sergio
+//Sergio Manrique
 public class Consultas {
     public String idConsulta;
     public LocalDateTime fechaHora;

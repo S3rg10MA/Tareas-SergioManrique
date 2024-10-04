@@ -3,7 +3,7 @@ package usuarios;
 import usuarios.utils.Rol;
 
 import java.time.LocalDate;
-
+//Sergio Manrique
 public class Usuario {
     public String id;
     public String nombre;

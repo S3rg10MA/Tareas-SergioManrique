@@ -5,7 +5,7 @@ import usuarios.utils.Rol;
 
 import java.time.LocalDate;
 import java.util.Random;
-//Sergio
+//Sergio Manrique
 
 public class Paciente extends Usuario {
 
@@ -17,26 +17,6 @@ public class Paciente extends Usuario {
         super(id, nombre, apellido, fechaNacimiento, telefono,contrasenia ,Rol.PACIENTE);
         this.tipoSangre = tipoSangre;
         this.sexo = sexo;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public String getApellido() {
-        return apellido;
-    }
-
-    public LocalDate getFechaNacimiento() {
-        return fechaNacimiento;
-    }
-
-    public String getTelefono() {
-        return telefono;
     }
 
     public String getTipoSangre() {

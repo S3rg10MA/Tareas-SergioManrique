@@ -2,6 +2,7 @@ package hospital;
 
 import consultas.Consultas;
 import consultorios.Consultorio;
+import usuarios.administrador.Administrador;
 import usuarios.medicos.Medico;
 import usuarios.pacientes.Paciente;
 
@@ -9,7 +10,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Random;
-//Sergio
+//Sergio Manrique
 public class Hospital {
     public ArrayList<Paciente> listaPacientes = new ArrayList<>();
 
@@ -18,6 +19,8 @@ public class Hospital {
     public ArrayList<Consultas> listaConsultas = new ArrayList<>();
 
     public ArrayList<Consultorio> listaConsultorios = new ArrayList<>();
+
+    public ArrayList<Administrador> listaAdministradores = new ArrayList<>();
 
     public void registrarPaciente(Paciente paciente) {
 
@@ -52,6 +55,9 @@ public class Hospital {
 
     public void registrarConsultorios(Consultorio consultorio) {
         this.listaConsultorios.add(consultorio);
+    }
+    public void registrarAdministrador(Administrador administrador) {
+        this.listaAdministradores.add(administrador);
     }
 
     public void mostrarPacientes(){
@@ -134,6 +140,13 @@ public class Hospital {
         int longitudMasUno = this.listaConsultorios.size() + 1;
         return String.format("CO%d%d%d", longitudMasUno,diaActual,numeroAleatorio);
 
+    }
+    public String generarIdAdmin(){
+        Random random = new Random();
+        int diaActual = LocalDate.now().getDayOfMonth();
+        int numeroAleatorio = random.nextInt(1, 100000);
+        int longitudMasUno = this.listaAdministradores.size()+1;
+        return String.format("AD%d%d%d", diaActual,numeroAleatorio,longitudMasUno);
     }
 
     public Paciente obtenerpacienteporId(String idPaciente){

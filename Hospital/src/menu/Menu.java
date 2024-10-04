@@ -9,7 +9,7 @@ import usuarios.pacientes.Paciente;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Scanner;
-//Sergio
+//Sergio Manrique
 public class Menu {
     private Scanner sc = new Scanner(System.in);
     private Hospital hospital = new Hospital();
@@ -22,6 +22,7 @@ public class Menu {
 
     public void login(){
         int intentosMaximos=5, intentosUsuario = 0;
+
         while(intentosUsuario < intentosMaximos){
             System.out.println("\n**Bienvenido**\n");
             System.out.println("Inicia sesion para continuar");
@@ -56,7 +57,7 @@ public class Menu {
         System.out.println("Intentos maximos permitidos alcanzados");
     }
     private int mostrarErrorInicioSesion(int intentosUsuario){
-        System.out.println("\nUsuario o contrasenia incorrectos");
+        System.out.println("\nUsuario o contrasenia incorrectos, intenta de nuevo");
         return intentosUsuario +1;
 
     }
@@ -78,10 +79,11 @@ public class Menu {
                     hospital.mostrarConsultasporID(IdConsulta);
 
                     break;
-                        default:
+                        case 2:
                         System.out.println("Hasta Luego");
                         return;
             }
+
         }
     }
     private void mostrarMenuMedico(){
@@ -110,7 +112,6 @@ public class Menu {
                                 return;
             }
         }
-
     }
 
     private void mostrarMenuAndimistrador() {
@@ -212,6 +213,8 @@ public class Menu {
                             telefonoDoctor = null;
                         }
                     }
+                    System.out.println("Ingresa una contrasenia");
+                    String contrasenia = sc.next();
 
                     String rfc = null;
                     while(rfc == null){
@@ -224,7 +227,7 @@ public class Menu {
                     }
 
                     String idMedico = hospital.generarIdMedico(apellidoDoctor, String.valueOf(fechaNacDoctor));
-                    Medico medico = new Medico(idMedico, nombreDoctor,apellidoDoctor,fechaNacDoctor,telefonoDoctor,rfc);
+                    Medico medico = new Medico(idMedico, nombreDoctor,apellidoDoctor,fechaNacDoctor,telefonoDoctor,contrasenia,rfc);
                     hospital.registrarMedico(medico);
                     System.out.println("Datos del Doctor registrados Correctamente");
 
