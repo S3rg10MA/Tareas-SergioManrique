@@ -212,6 +212,8 @@ public class Menu {
                             telefonoDoctor = null;
                         }
                     }
+                    System.out.println("Ingresa una Contrasenia");
+                    String contrasenia = sc.next();
 
                     String rfc = null;
                     while(rfc == null){
@@ -224,7 +226,7 @@ public class Menu {
                     }
 
                     String idMedico = hospital.generarIdMedico(apellidoDoctor, String.valueOf(fechaNacDoctor));
-                    Medico medico = new Medico(idMedico, nombreDoctor,apellidoDoctor,fechaNacDoctor,telefonoDoctor,rfc);
+                    Medico medico = new Medico(idMedico, nombreDoctor,apellidoDoctor,fechaNacDoctor,telefonoDoctor,contrasenia,rfc);
                     hospital.registrarMedico(medico);
                     System.out.println("Datos del Doctor registrados Correctamente");
 
