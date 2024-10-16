@@ -1,10 +1,13 @@
 package hospital;
 
 import consultas.Consultas;
+import consultas.utils.Status;
 import consultorios.Consultorio;
+import usuarios.Usuario;
 import usuarios.administrador.Administrador;
 import usuarios.medicos.Medico;
 import usuarios.pacientes.Paciente;
+import usuarios.utils.Rol;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -12,6 +15,9 @@ import java.util.ArrayList;
 import java.util.Random;
 //Sergio Manrique
 public class Hospital {
+
+    public ArrayList<Usuario> listausuarios = new ArrayList<>();
+
     public ArrayList<Paciente> listaPacientes = new ArrayList<>();
 
     public ArrayList<Medico> listaMedicos = new ArrayList<>();
@@ -22,14 +28,24 @@ public class Hospital {
 
     public ArrayList<Administrador> listaAdministradores = new ArrayList<>();
 
+  public Hospital (){
+      LocalDate fechaNacimiento = LocalDate.of(1999, 11, 05);
+        Administrador administrador= new Administrador("Ad-01", "Josue", "Marquez", fechaNacimiento, "4432353695",
+                "123", Rol.ADMIN, "15000","serg8678", "15");
+        this.listausuarios.add(administrador);
+        this.listaAdministradores.add(administrador);
+    }
+
+
     public void registrarPaciente(Paciente paciente) {
 
-
         this.listaPacientes.add(paciente);
+        this.listausuarios.add(paciente);
     }
 
     public void registrarMedico(Medico medico) {
         this.listaMedicos.add(medico);
+        this.listausuarios.add(medico);
     }
     private ValidadorHospital validador = new ValidadorHospital();
 
@@ -57,6 +73,7 @@ public class Hospital {
         this.listaConsultorios.add(consultorio);
     }
     public void registrarAdministrador(Administrador administrador) {
+
         this.listaAdministradores.add(administrador);
     }
 
@@ -227,6 +244,39 @@ public class Hospital {
 
     public boolean validarFechaConsulta(LocalDateTime fechaDeseada){
         return this.validador.validarFechaCorrecta(fechaDeseada);
+    }
+
+    public Usuario validarInicioSesion(String idUsuario, String contrasenia){
+        for (Usuario usuario : this.listausuarios){
+            if(usuario.getId().equals(idUsuario) && usuario.getContrasenia().equals(contrasenia)){
+                return usuario;
+            }
+        }
+        return null;
+    }
+    public void verConsultasPaciente(String idPaciente){
+        boolean existenConsultas = false;
+        for (Consultas consulta : this.listaConsultas){
+            if (idPaciente.equals(consulta.getPaciente().getId()) && consulta.getStatus() == Status.PENDIENTE){
+                existenConsultas = true;
+                System.out.println(consulta.mostrarConsulta());
+            }
+        }
+        if (!existenConsultas){
+            System.out.println("\nNotienes consultas agendadas");
+        }
+    }
+    public void vermisDatosPaciente(String idPaciente){
+        boolean existenPacientes = false;
+        for (Paciente paciente : this.listaPacientes){
+            if (idPaciente.equals(paciente.getId()));{
+                existenPacientes = true;
+                System.out.println(paciente.mostrarDatosPaciente());
+            }
+        }
+        if (!existenPacientes){
+            System.out.println("\nNo hay datos registrados");
+        }
     }
 
 

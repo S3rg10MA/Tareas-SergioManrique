@@ -3,8 +3,10 @@ package menu;
 import consultas.Consultas;
 import consultorios.Consultorio;
 import hospital.Hospital;
+import usuarios.Usuario;
 import usuarios.medicos.Medico;
 import usuarios.pacientes.Paciente;
+import usuarios.utils.Rol;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -13,12 +15,7 @@ import java.util.Scanner;
 public class Menu {
     private Scanner sc = new Scanner(System.in);
     private Hospital hospital = new Hospital();
-    private static final String USUARIO = "Juan123";
-    private final String CONTRASENIA = "12345";
-    private static final String USUARIO_MEDICO = "ale123";
-    private final String CONTRASENIA_MEDICO = "12345*";
-    private static final String USUARIO_ADMINISTRADOR = "admin123";
-    private final String CONTRASENIA_ADMINISTRADOR = "54321*";
+
 
     public void login(){
         int intentosMaximos=5, intentosUsuario = 0;
@@ -26,34 +23,34 @@ public class Menu {
         while(intentosUsuario < intentosMaximos){
             System.out.println("\n**Bienvenido**\n");
             System.out.println("Inicia sesion para continuar");
-            System.out.println("Ingrese su usuario");
+            System.out.println("Ingrese tu Id de usuario");
             String usuario = sc.next();
 
             System.out.println("Ingresa tu contrasenia");
             String contrasenia = sc.next();
 
-            if (usuario.equals(this.USUARIO)){
-                if(contrasenia.equals(CONTRASENIA)){
-                    this.mostrarMenuPaciente();
-                    intentosUsuario = 0;
-                }
-            } else if (usuario.equals(this.USUARIO_MEDICO)) {
-                if(contrasenia.equals(CONTRASENIA_MEDICO)){
-                    this.mostrarMenuMedico();
-                    intentosUsuario = 0;
-                }
-                intentosUsuario = mostrarErrorInicioSesion(intentosUsuario);
-            }
+            Usuario usuariosesion=hospital.validarInicioSesion(usuario, contrasenia);
 
-             if (usuario.equals(this.USUARIO_ADMINISTRADOR) && contrasenia.equals(this.CONTRASENIA_ADMINISTRADOR)){
-                System.out.println("\nInicio de sesion exitoso");
-                this.mostrarMenuAndimistrador();
-                intentosUsuario = 0;
-            }else {
+            if(usuariosesion instanceof Usuario){
+                if(usuariosesion.getRol() == Rol.PACIENTE){
+                //mostrar menu paciente
+                    Paciente pacienteEnSesion = (Paciente)usuariosesion;
+                    this.mostrarMenuPaciente(pacienteEnSesion);
+                    intentosUsuario=0;
+                }else if (usuariosesion.getRol() == Rol.MEDICO){
+                    Medico medicoEnSesion = (Medico)usuariosesion;
+                    this.mostrarMenuMedico(medicoEnSesion);
+                    intentosUsuario=0;
+                }else {
+                    this.mostrarMenuAndimistrador();
+                    intentosUsuario=0;
+                }
+            }else{
                 intentosUsuario = mostrarErrorInicioSesion(intentosUsuario);
-
             }
         }
+
+
         System.out.println("Intentos maximos permitidos alcanzados");
     }
     private int mostrarErrorInicioSesion(int intentosUsuario){
@@ -62,38 +59,44 @@ public class Menu {
 
     }
 
-    private void mostrarMenuPaciente(){
+    private void mostrarMenuPaciente( Paciente paciente){
         int opcion=0;
-        while(opcion != 2){
+        while(opcion != 4){
             System.out.println("\n** Sistema Hospital **\n");
             System.out.println("1. Ver mis consultas");
-            System.out.println("2. Salir");
+            System.out.println("2. Ver mis datos");//tarea
+            System.out.println("3.- Ver mi expediente");
+            System.out.println("4. Salir");
 
             System.out.println("Selecciona una opcion");
             opcion = sc.nextInt();
 
             switch (opcion){
                 case 1:
-                    System.out.println("Ingresa el Id de la consulta");
-                    String IdConsulta = sc.next();
-                    hospital.mostrarConsultasporID(IdConsulta);
-
+                    hospital.verConsultasPaciente(paciente.getId());
                     break;
                         case 2:
-                        System.out.println("Hasta Luego");
-                        return;
+                            System.out.println("Estos son tus datos");
+                            hospital.vermisDatosPaciente(paciente.getId());
+                            break;
+                                case 3:
+                                System.out.println("Hasta Luego");
+                                    return;
             }
 
         }
     }
-    private void mostrarMenuMedico(){
+    private void mostrarMenuMedico(Medico medico){
         int opcion=0;
-        while(opcion != 4){
+        while(opcion != 7){
             System.out.println("\n** Sistema Hospital **\n");
-            System.out.println("1. Ver mis consultas");
+            System.out.println("1. Ver mis consultas actuales");//tarea
             System.out.println("2. Ver mis usuarios.medicos.pacientes");
             System.out.println("3. Consutar paciente");
-            System.out.println("4. Salir");
+            System.out.println("4. Consultar mis datos");//tarea
+            System.out.println("5. Consultar historial del paciente");
+            System.out.println("6.- Completar Consulta");
+            System.out.println("7. Salir");
 
             System.out.println("Selecciona una opcion");
             opcion = sc.nextInt();
@@ -108,6 +111,12 @@ public class Menu {
                         case 3:
                             break;
                             case 4:
+                                System.out.println("Ingresa tu Id");
+                                String IdMedico = sc.next();
+                                System.out.println("Estos son tus datos: ");
+                                hospital.mostrarMedicoporID(IdMedico);
+                                break;
+                            case 5:
                                 System.out.println("Hasta luego");
                                 return;
             }
@@ -163,8 +172,6 @@ public class Menu {
                         System.out.println("Ingresa el Numero de Telefono del Paciente");
                         telefono = sc.next();
 
-                        System.out.println("Ingresa tu contrasenia");
-                        String contrasenia = sc.next();
 
                         if(hospital.telefonoPaciente(telefono)){
                             System.out.println("ingresa otro numero, ya que este ya esta registrado");
@@ -172,6 +179,8 @@ public class Menu {
                         }
                     }
 
+                    System.out.println("Ingresa tu contrasenia");
+                    String contrasenia = sc.next();
 
 
                     System.out.println("Ingresa el tipo de sangre del Paciente");
@@ -179,7 +188,8 @@ public class Menu {
                     System.out.println("Ingresa el sexo del Paciente");
                     char sexo = sc.next().charAt(0);
 
-                    Paciente paciente = new Paciente(id,nombre, apellido, fechaNacimiento, telefono, tipoSangre, sexo, CONTRASENIA);
+
+                    Paciente paciente = new Paciente(id, nombre, apellido, fechaNacimiento, telefono,tipoSangre, sexo, contrasenia);
                     hospital.registrarPaciente(paciente);
                     System.out.println("Datos del Paciente registrados Correctamente");
                     break;
@@ -214,7 +224,7 @@ public class Menu {
                         }
                     }
                     System.out.println("Ingresa una contrasenia");
-                    String contrasenia = sc.next();
+                    String contraseniaDoc = sc.next();
 
                     String rfc = null;
                     while(rfc == null){
@@ -227,7 +237,7 @@ public class Menu {
                     }
 
                     String idMedico = hospital.generarIdMedico(apellidoDoctor, String.valueOf(fechaNacDoctor));
-                    Medico medico = new Medico(idMedico, nombreDoctor,apellidoDoctor,fechaNacDoctor,telefonoDoctor,contrasenia,rfc);
+                    Medico medico = new Medico(idMedico, nombreDoctor,apellidoDoctor,fechaNacDoctor,telefonoDoctor,contraseniaDoc,rfc);
                     hospital.registrarMedico(medico);
                     System.out.println("Datos del Doctor registrados Correctamente");
 

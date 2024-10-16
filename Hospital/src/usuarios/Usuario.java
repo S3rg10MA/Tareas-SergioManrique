@@ -3,6 +3,8 @@ package usuarios;
 import usuarios.utils.Rol;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 //Sergio Manrique
 public class Usuario {
     public String id;
@@ -36,14 +38,13 @@ public class Usuario {
         return apellido;
     }
 
-    public LocalDate getFechaNacimiento() {
-        return fechaNacimiento;
+    public LocalDate getFechaNacimiento() {return fechaNacimiento;
     }
 
     public String getTelefono() {
         return telefono;
     }
-    protected String getContrasenia(){
+    public String getContrasenia(){
         return contrasenia;
     }
     public Rol getRol() {
