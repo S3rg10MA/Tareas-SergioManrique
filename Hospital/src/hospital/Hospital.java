@@ -266,6 +266,17 @@ public class Hospital {
             System.out.println("\nNotienes consultas agendadas");
         }
     }
+    public void verConsultasDoctor(String idDoctor){
+        boolean existenConsultas = false;
+        for (Consultas consulta : this.listaConsultas){
+            if(idDoctor.equals(consulta.getMedico().getId()) && consulta.getStatus() == Status.PENDIENTE){
+                existenConsultas = true;
+                System.out.println(consulta.mostrarConsulta());
+            }
+        }if (!existenConsultas){
+            System.out.println("\nNotienes consultas agendadas");
+        }
+    }
     public void vermisDatosPaciente(String idPaciente){
         boolean existenPacientes = false;
         for (Paciente paciente : this.listaPacientes){
@@ -275,6 +286,17 @@ public class Hospital {
             }
         }
         if (!existenPacientes){
+            System.out.println("\nNo hay datos registrados");
+        }
+    }
+    public void verMisDatosDoctor(String idDoctor){
+        boolean existenDoctors = false;
+        for (Medico medico : this.listaMedicos){
+            if (idDoctor.equals(medico.getId()));{
+                existenDoctors = true;
+                System.out.println(medico.informacionDoctor());
+            }
+        }if (!existenDoctors){
             System.out.println("\nNo hay datos registrados");
         }
     }
