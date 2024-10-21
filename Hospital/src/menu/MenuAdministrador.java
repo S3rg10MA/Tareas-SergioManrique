@@ -301,6 +301,7 @@ public class MenuAdministrador {
 
                 break;
             case 13:
+                hospital.mostrarAdmins();
                 break;
             case 14:
                 System.out.println("Hasta Luego");

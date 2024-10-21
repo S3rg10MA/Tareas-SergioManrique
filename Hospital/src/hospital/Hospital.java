@@ -107,6 +107,16 @@ public class Hospital {
             iterador++;
         }
     }
+
+    public void mostrarAdmins(){
+        int iterador=1;
+        System.out.println("\n-- Administradores del Hospital--");
+        for(Administrador administrador : this.listaAdministradores){
+            System.out.println("Este es el administrador" + iterador);
+            System.out.println(administrador.mostrarInformacion());
+            iterador++;
+        }
+    }
     public void mostrarConsultorios(){
         int iterador=1;
         System.out.println("\n--Consultorios del Hospital--");
