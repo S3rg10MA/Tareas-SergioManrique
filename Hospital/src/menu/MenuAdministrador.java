@@ -93,8 +93,6 @@ public class MenuAdministrador {
                 break;
             case 3:
 
-
-
                 System.out.println("\nIngresa los datos del doctor");
                 System.out.println("Ingresa el Nombre del doctor");
                 String nombreDoctor = sc.next();
@@ -158,7 +156,6 @@ public class MenuAdministrador {
                 hospital.mostrarConsultorios();
                 break;
             case 7:
-
 
                 System.out.println("Ingresa los datos de la consulta");
                 String idConsulta = hospital.generarIdConsulta();
@@ -256,21 +253,21 @@ public class MenuAdministrador {
                 break;
             case 12 :
                 System.out.println("\nIngresa los datos del nuevo Admnistrador");
-                System.out.println("Ingresa el Nombre del doctor");
+                System.out.println("Ingresa el Nombre del nuevo Admin");
                 String nombreAdmin = sc.next();
-                System.out.println("Ingresa el Apellido del doctor");
+                System.out.println("Ingresa el Apellido del Admin");
                 String apellidoAdmin= sc.next();
-                System.out.println("Ingresa el año de nacimiento del medico");
+                System.out.println("Ingresa el año de nacimiento del Admin");
                 int anioAdmin = sc.nextInt();
-                System.out.println("Ingresa el mes de nacimiento del medico");
+                System.out.println("Ingresa el mes de nacimiento del Admin");
                 int mesAdmin = sc.nextInt();
-                System.out.println("Ingresa el dia de nacimiento del medico");
+                System.out.println("Ingresa el dia de nacimiento del Admin");
                 int diaAdmin = sc.nextInt();
                 LocalDate fechaNacAdmin = LocalDate.of(anioAdmin, mesAdmin, diaAdmin);
 
                 String telefonoAdmin = null;
                 while(telefonoAdmin == null){
-                    System.out.println("Ingresa el Numero de Telefono del doctor");
+                    System.out.println("Ingresa el Numero de Telefono del Admin");
                     telefonoAdmin = sc.next();
                     if(hospital.telefonoMedico(telefonoAdmin)){
                         System.out.println("ingresa otro numero, ya que esta registrado");
@@ -282,10 +279,10 @@ public class MenuAdministrador {
 
                 String rfcAdmin = null;
                 while(rfcAdmin == null){
-                    System.out.println("Ingresa el RFC del doctor");
+                    System.out.println("Ingresa el RFC del Admin");
                     rfcAdmin = sc.next();
                     if(hospital.rfcMedico(rfcAdmin)){
-                        System.out.println("Revisa el rfc, ya que el que deseas registrar, ya a sido registrado por otro medico");
+                        System.out.println("Revisa el rfc, ya que el que deseas registrar, ya a sido registrado.");
                         rfcAdmin = null;
                     }
                 }
@@ -297,7 +294,7 @@ public class MenuAdministrador {
                 String idAdmin = hospital.generarIdAdmin(String.valueOf(fechaNacAdmin));
                 Administrador  administrador1 = new Administrador(idAdmin,nombreAdmin,apellidoAdmin,fechaNacAdmin,telefonoAdmin,contraseniaAdmin,Rol.ADMIN,sueldoAdmin,rfcAdmin,aniosAdmin);
                 hospital.registrarAdministrador(administrador1);
-                System.out.println("Datos del Doctor registrados Correctamente");
+                System.out.println("Datos del Admin registrados Correctamente");
 
                 break;
             case 13:
