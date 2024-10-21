@@ -54,6 +54,10 @@ public class Consultas {
         return status;
     }
 
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
     public String mostrarConsulta() {
         return String.format("Id: %s, Fecha: %s, Id Paciente: %s, nombre Paciente: %s, Id Medico: %s, Nombre Medico: %s, Num.Consultorio: %d, Piso Consultorio %d",
                 idConsulta,fechaHora, paciente.getId(), paciente.getNombre(), medico.getId(), medico.getNombre(),consultorio.getNumeroConsultorio(), consultorio.getPiso());

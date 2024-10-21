@@ -3,6 +3,7 @@ package hospital;
 import consultas.Consultas;
 import consultas.utils.Status;
 import consultorios.Consultorio;
+import expedientes.Expediente;
 import usuarios.Usuario;
 import usuarios.administrador.Administrador;
 import usuarios.medicos.Medico;
@@ -13,6 +14,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Scanner;
+
 //Sergio Manrique
 public class Hospital {
 
@@ -34,7 +37,14 @@ public class Hospital {
                 "123", Rol.ADMIN, "15000","serg8678", "15");
         this.listausuarios.add(administrador);
         this.listaAdministradores.add(administrador);
+
+      LocalDate fechaNacimiento1 = LocalDate.of(1978, 9, 22);
+      Medico medico = new Medico("D1","Lilia","Ambriz",fechaNacimiento1,"65431987987",
+              "1","sdfsdfdsf", Rol.MEDICO);
+      this.listaMedicos.add(medico);
+      this.listausuarios.add(medico);
     }
+
 
 
     public void registrarPaciente(Paciente paciente) {
@@ -72,6 +82,7 @@ public class Hospital {
     public void registrarConsultorios(Consultorio consultorio) {
         this.listaConsultorios.add(consultorio);
     }
+
     public void registrarAdministrador(Administrador administrador) {
 
         this.listaAdministradores.add(administrador);
@@ -82,7 +93,7 @@ public class Hospital {
         System.out.println("\n--Pacientes del Hospital--");
         for(Paciente paciente : this.listaPacientes){
             System.out.println("Este es el paciente" + iterador);
-            System.out.println(paciente.mostrarDatosPaciente());
+            System.out.println(paciente.mostrarInformacion());
             iterador++;
         }
     }
@@ -92,7 +103,7 @@ public class Hospital {
         System.out.println("\n-- Medicos del Hospital--");
         for(Medico medico : this.listaMedicos){
             System.out.println("Este es el medico" + iterador);
-            System.out.println(medico.informacionDoctor());
+            System.out.println(medico.mostrarInformacion());
             iterador++;
         }
     }
@@ -105,6 +116,7 @@ public class Hospital {
             iterador++;
         }
     }
+
     public void mostrarConsultas(){
         if(this.listaConsultas.isEmpty()){
             System.out.println("\nNo se cuenta con consultas registradas");
@@ -158,7 +170,8 @@ public class Hospital {
         return String.format("CO%d%d%d", longitudMasUno,diaActual,numeroAleatorio);
 
     }
-    public String generarIdAdmin(){
+
+    public String generarIdAdmin(String fechaNacAdmin){
         Random random = new Random();
         int diaActual = LocalDate.now().getDayOfMonth();
         int numeroAleatorio = random.nextInt(1, 100000);
@@ -174,15 +187,17 @@ public class Hospital {
 
         Paciente paciente = obtenerpacienteporId(idPaciente);
         if(paciente != null){
-            System.out.println(paciente.mostrarDatosPaciente());
+            System.out.println(paciente.mostrarInformacion());
         }else{
             System.out.println("Paciente no encontrado");
         }
 
     }
+
     public Paciente obtenerTelefonodePaciente(String telefono){
         return listaPacientes.stream().filter(paciente -> paciente.getTelefono().equals(telefono)).findFirst().orElse(null);
     }
+
     public boolean telefonoPaciente(String telefono){
         Paciente paciente = obtenerTelefonodePaciente(telefono);
         return paciente != null;
@@ -196,26 +211,29 @@ public class Hospital {
 
         Medico medico = obtenerMedicoPorID(IdMedico);
         if (medico != null){
-            System.out.println(medico.informacionDoctor());
+            System.out.println(medico.mostrarInformacion());
         }else{
             System.out.println("Medico no encontrado");
         }
     }
+
     public Medico obtenertelefonoMedico(String telefonoDoctor){
         return listaMedicos.stream().filter(medico -> medico.getTelefono().equals(telefonoDoctor)).findFirst().orElse(null);
     }
+
     public boolean telefonoMedico(String telefonoDoctor){
         Medico medico = obtenertelefonoMedico(telefonoDoctor);
         return medico != null;
     }
+
     public Medico obtenerRfcMedico(String rfc){
         return listaMedicos.stream().filter(medico -> medico.getRfc().equals(rfc)).findFirst().orElse(null);
     }
+
     public boolean rfcMedico(String rfc){
         Medico medico = obtenerRfcMedico(rfc);
         return medico != null;
     }
-
 
     public Consultorio obtenerConsultorioPorID(String IdConsultorio){
         return listaConsultorios.stream().filter(consultorio -> consultorio.getIdConsultorio().equals(IdConsultorio)).findFirst().orElse(null);
@@ -229,9 +247,11 @@ public class Hospital {
             System.out.println("Consultorio no encontrado");
         }
     }
+
     public Consultas obtenerConsultasporID(String IdConsultas){
         return listaConsultas.stream().filter(consultas -> consultas.getIdConsulta().equals(IdConsultas)).findFirst().orElse(null);
     }
+
     public void mostrarConsultasporID(String IdConsultas){
         Consultas consultas = obtenerConsultasporID(IdConsultas);
         if(consultas != null){
@@ -240,7 +260,6 @@ public class Hospital {
             System.out.println("Consulta no encontrada");
         }
     }
-
 
     public boolean validarFechaConsulta(LocalDateTime fechaDeseada){
         return this.validador.validarFechaCorrecta(fechaDeseada);
@@ -254,6 +273,7 @@ public class Hospital {
         }
         return null;
     }
+
     public void verConsultasPaciente(String idPaciente){
         boolean existenConsultas = false;
         for (Consultas consulta : this.listaConsultas){
@@ -266,6 +286,7 @@ public class Hospital {
             System.out.println("\nNotienes consultas agendadas");
         }
     }
+
     public void verConsultasDoctor(String idDoctor){
         boolean existenConsultas = false;
         for (Consultas consulta : this.listaConsultas){
@@ -277,29 +298,75 @@ public class Hospital {
             System.out.println("\nNotienes consultas agendadas");
         }
     }
+
     public void vermisDatosPaciente(String idPaciente){
         boolean existenPacientes = false;
         for (Paciente paciente : this.listaPacientes){
             if (idPaciente.equals(paciente.getId()));{
                 existenPacientes = true;
-                System.out.println(paciente.mostrarDatosPaciente());
+                System.out.println(paciente.mostrarInformacion());
             }
         }
         if (!existenPacientes){
             System.out.println("\nNo hay datos registrados");
         }
     }
+
     public void verMisDatosDoctor(String idDoctor){
         boolean existenDoctors = false;
         for (Medico medico : this.listaMedicos){
             if (idDoctor.equals(medico.getId()));{
                 existenDoctors = true;
-                System.out.println(medico.informacionDoctor());
+                System.out.println(medico.mostrarInformacion());
             }
         }if (!existenDoctors){
             System.out.println("\nNo hay datos registrados");
         }
     }
 
+    public Consultas obtenerConsultaporID(String idConsulta){
+        for (Consultas consulta : this.listaConsultas){
+            if(consulta.getMedico().getId().equals(idConsulta)){
+                return consulta;
+            }
+        }
+        return null;
+    }
+
+    public void eliminarConsultaporID(String idConsulta){
+        for (Consultas consulta : this.listaConsultas){
+            if(consulta.getMedico().getId().equals(idConsulta)){
+                this.listaConsultas.remove(consulta);
+                return;
+            }
+        }
+    }
+
+    public void generarExpedienteConsulta(String idConsulta, String idPaciente){
+
+        Scanner sc = new Scanner(System.in);
+
+        Consultas consulta = obtenerConsultaporID(idConsulta);
+        //obtener consulta
+        if (consulta == null){
+            System.out.println("No existe una consulta con ese id proporcionado");
+            return;
+        }
+        Paciente paciente = this.obtenerpacienteporId(idPaciente);
+        if (paciente == null){
+            System.out.println("No existe una consulta con ese id proporcionado");
+            return;
+        }
+        consulta.setStatus(Status.TERMINADA);
+
+
+        this.eliminarConsultaporID(idConsulta);
+
+        System.out.println("Ingresa las observaciones finales de la consulta");
+        String observaciones = sc.nextLine();
+        Expediente expediente = new Expediente(consulta,observaciones);
+        paciente.registrarExpediente(expediente);
+        System.out.println("Consulta finalizada");
+    }
 
 }

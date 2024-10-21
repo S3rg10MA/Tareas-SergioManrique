@@ -26,6 +26,12 @@ public class Usuario {
 
     }
 
+    protected String mostrarInformacion(){
+        String nombreCompleto= this.nombre+ " " + this.apellido;
+        String datos = String.format("\n Id %s, nombre Completo: %s, fecha de Nacimiento: %s, telefono: %s", id, nombreCompleto, fechaNacimiento, telefono);
+        return datos;
+    }
+
     public String getId() {
         return id;
     }
@@ -50,4 +56,6 @@ public class Usuario {
     public Rol getRol() {
         return rol;
     }
+
+
 }

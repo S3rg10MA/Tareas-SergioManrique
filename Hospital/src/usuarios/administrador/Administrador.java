@@ -29,4 +29,10 @@ public class Administrador extends Usuario {
         return String.format("Id del Admin: %d, Nombre: %s, Apellido: %s, Fecha de Nacimiento: %s, Telefono: %s,",id,nombre,
                 apellido,fechaNacimiento,telefono);
     }
+
+    @Override
+    public String mostrarInformacion(){
+        String datosadmin = String.format(", RFC: %s, Sueldo: %s, anios Trabajados: %s",rfc,sueldo,aniosTrabajados);
+        return super.mostrarInformacion()+ datosadmin;
+    }
 }

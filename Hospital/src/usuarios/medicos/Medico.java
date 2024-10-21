@@ -10,7 +10,7 @@ public class Medico extends Usuario {
     private String rfc;
 
 //Sergio Manrique
-    public Medico(String idMedico, String nombre, String apellidoDoctor, LocalDate fechaNacimientoDoctor, String telefonoDoctor, String contrasenia ,String rfc) {
+    public Medico(String idMedico, String nombre, String apellidoDoctor, LocalDate fechaNacimientoDoctor, String telefonoDoctor, String contrasenia ,String rfc, Rol rol) {
         super(idMedico, nombre, apellidoDoctor, fechaNacimientoDoctor, telefonoDoctor, contrasenia,Rol.MEDICO);
         this.rfc = rfc;
     }
@@ -20,10 +20,9 @@ public class Medico extends Usuario {
     }
 
 
-
-    public String informacionDoctor() {
-        return String.format("Id: %s, Nombre del Doctor: %s, Apellido: %s, Fecha de Nacimiento: %s, " +
-                        "Telefono: %s, RFC. del doctor: %s", id, nombre,apellido,
-                fechaNacimiento,telefono,rfc);
+    @Override
+    public String mostrarInformacion(){
+        String datosMedico = String.format(", RFC: %s",rfc);
+        return super.mostrarInformacion()+ datosMedico;
     }
 }
