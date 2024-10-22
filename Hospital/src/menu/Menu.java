@@ -57,7 +57,7 @@ public class Menu {
                     Administrador administradorEnSesion = (Administrador)usuariosesion;
                     MenuAdministrador menuAdministrador = new MenuAdministrador();
                     int opcion =0;
-                    while (opcion != 12) {
+                    while (opcion != 15) {
                         opcion = menuAdministrador.mostrarMenu();
                         menuAdministrador.ProcesarDatosMenu(opcion,hospital,administradorEnSesion);
                     }

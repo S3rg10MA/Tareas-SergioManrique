@@ -10,6 +10,7 @@ import usuarios.utils.Rol;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MenuAdministrador {
@@ -30,8 +31,9 @@ public class MenuAdministrador {
             System.out.println("10. Mostrar Medico por ID");
             System.out.println("11. Mostrar Consultorio por ID");
             System.out.println("12. Registrar Administrador");
-            System.out.println("13.- Mostrar Datos del Administrador");
-            System.out.println("14.- Salir");
+            System.out.println("13.- Mostrar Administradores");
+            System.out.println("14.- Ver mis datos de Administrador");
+            System.out.println("15.- Salir");
 
             System.out.println("**Selecciona una opcion**");
             int opcion = sc.nextInt();
@@ -46,42 +48,18 @@ public class MenuAdministrador {
 
                 String id = hospital.generarIdPaciente();
 
-                System.out.println("Ingresa los datos del Paciente");
-                System.out.println("Ingresa el Nombre del Paciente");
-                String nombre = sc.next();
-                System.out.println("Ingresa el Apellido del Paciente");
-                String apellido = sc.next();
-                System.out.println("Ingresa el año de nacimiento del paciente");
-                int anio = sc.nextInt();
-                System.out.println("Ingresa el mes de nacimiento del paciente");
-                int mes = sc.nextInt();
-                System.out.println("Ingresa el dia de nacimiento del paciente");
-                int dia = sc.nextInt();
-
-                LocalDate fechaNacimiento = LocalDate.of(anio, mes, dia);
-
-
-                String telefono = null;
-                while(telefono == null){
-                    System.out.println("Ingresa el Numero de Telefono del Paciente");
-                    telefono = sc.next();
-
-
-                    if(hospital.telefonoPaciente(telefono)){
-                        System.out.println("ingresa otro numero, ya que este ya esta registrado");
-                        telefono = null;
-                    }
-                }
-
-                System.out.println("Ingresa tu contrasenia");
-                String contrasenia = sc.next();
+                ArrayList<String>datosPAciente = this.obtenerDatosComun(Rol.PACIENTE);
+                String nombre = datosPAciente.get(0);
+                String apellido = datosPAciente.get(1);
+                LocalDate fechaNacimiento = LocalDate.parse(datosPAciente.get(2));
+                String telefono = datosPAciente.get(3);
+                String contrasenia = datosPAciente.get(4);
 
 
                 System.out.println("Ingresa el tipo de sangre del Paciente");
                 String tipoSangre = sc.next();
                 System.out.println("Ingresa el sexo del Paciente");
                 char sexo = sc.next().charAt(0);
-
 
                 Paciente paciente = new Paciente(id, nombre, apellido, fechaNacimiento, telefono,tipoSangre, sexo, contrasenia);
                 hospital.registrarPaciente(paciente);
@@ -93,30 +71,13 @@ public class MenuAdministrador {
                 break;
             case 3:
 
-                System.out.println("\nIngresa los datos del doctor");
-                System.out.println("Ingresa el Nombre del doctor");
-                String nombreDoctor = sc.next();
-                System.out.println("Ingresa el Apellido del doctor");
-                String apellidoDoctor = sc.next();
-                System.out.println("Ingresa el año de nacimiento del medico");
-                int aniodoc = sc.nextInt();
-                System.out.println("Ingresa el mes de nacimiento del medico");
-                int mesdoc = sc.nextInt();
-                System.out.println("Ingresa el dia de nacimiento del medico");
-                int diadoc = sc.nextInt();
-                LocalDate fechaNacDoctor = LocalDate.of(aniodoc, mesdoc, diadoc);
+                ArrayList<String>datosMedico = this.obtenerDatosComun(Rol.MEDICO);
+                String nombreDoctor = datosMedico.get(0);
+                String apellidoDoctor = datosMedico.get(1);
+                LocalDate fechaDoc = LocalDate.parse(datosMedico.get(2));
+                String telefonoDoctor = datosMedico.get(3);
+                String contraseniaDoc = datosMedico.get(4);
 
-                String telefonoDoctor = null;
-                while(telefonoDoctor == null){
-                    System.out.println("Ingresa el Numero de Telefono del doctor");
-                    telefonoDoctor = sc.next();
-                    if(hospital.telefonoMedico(telefonoDoctor)){
-                        System.out.println("ingresa otro numero, ya que esta registrado");
-                        telefonoDoctor = null;
-                    }
-                }
-                System.out.println("Ingresa una contrasenia");
-                String contraseniaDoc = sc.next();
 
                 String rfc = null;
                 while(rfc == null){
@@ -128,8 +89,8 @@ public class MenuAdministrador {
                     }
                 }
 
-                String idMedico = hospital.generarIdMedico(apellidoDoctor, String.valueOf(fechaNacDoctor));
-                Medico medico = new Medico(idMedico, nombreDoctor,apellidoDoctor,fechaNacDoctor,telefonoDoctor,contraseniaDoc,rfc, Rol.MEDICO);
+                String idMedico = hospital.generarIdMedico(apellidoDoctor, String.valueOf(fechaDoc));
+                Medico medico = new Medico(idMedico, nombreDoctor,apellidoDoctor,fechaDoc,telefonoDoctor,contraseniaDoc,rfc, Rol.MEDICO);
                 hospital.registrarMedico(medico);
                 System.out.println("Datos del Doctor registrados Correctamente");
 
@@ -301,8 +262,53 @@ public class MenuAdministrador {
                 hospital.mostrarAdmins();
                 break;
             case 14:
+                System.out.println("Estos son tus datos");
+                hospital.verMisDatosAdmin(administrador.getId());
+                break;
+            case 15:
                 System.out.println("Hasta Luego");
-                return;
+                break;
         }
+    }
+
+    private ArrayList<String> obtenerDatosComun(Rol rol){
+        ArrayList<String> datosEnComun= new ArrayList<>();
+        String tipoUsuario = rol == Rol.PACIENTE ? "paciente" : rol == Rol.MEDICO ? "medico" : "administrador";
+
+        System.out.println(String.format("Ingresa los datos del %s: ", tipoUsuario));
+        String nombre = sc.next();
+        datosEnComun.add(nombre);
+
+        System.out.println(String.format("Ingresa los datos del %s: ", tipoUsuario));
+        String apellido = sc.next();
+        datosEnComun.add(apellido);
+        System.out.println(String.format("Ingresa los datos del %s: ", tipoUsuario));
+        int anio = sc.nextInt();
+        System.out.println(String.format("Ingresa los datos del %s: ", tipoUsuario));
+        int mes = sc.nextInt();
+        System.out.println(String.format("Ingresa los datos del %s: ", tipoUsuario));
+        int dia = sc.nextInt();
+
+        LocalDate fechaNacimiento = LocalDate.of(anio, mes, dia);
+        datosEnComun.add(fechaNacimiento.toString());
+
+
+        String telefono = null;
+        while(telefono == null){
+            System.out.println(String.format("Ingresa los datos del %s: ", tipoUsuario));
+            telefono = sc.next();
+            datosEnComun.add(telefono);
+
+
+            if(hospital.telefonoPaciente(telefono)){
+                System.out.println("ingresa otro numero, ya que este ya esta registrado");
+                telefono = null;
+            }
+        }
+
+        System.out.println(String.format("Ingresa los datos del %s: ", tipoUsuario));
+        String contrasenia = sc.next();
+        datosEnComun.add(contrasenia);
+        return datosEnComun;
     }
 }

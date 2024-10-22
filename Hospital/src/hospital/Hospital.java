@@ -83,9 +83,9 @@ public class Hospital {
         this.listaConsultorios.add(consultorio);
     }
 
-    public void registrarAdministrador(Administrador administrador) {
+    public void registrarAdministrador(Administrador administrador1) {
 
-        this.listaAdministradores.add(administrador);
+        this.listaAdministradores.add(administrador1);
     }
 
     public void mostrarPacientes(){
@@ -117,6 +117,7 @@ public class Hospital {
             iterador++;
         }
     }
+
     public void mostrarConsultorios(){
         int iterador=1;
         System.out.println("\n--Consultorios del Hospital--");
@@ -150,11 +151,11 @@ public class Hospital {
 
     }
 
-    public String generarIdMedico(String apellidoDoctor, String fechaNacimientoDoctor){
+    public String generarIdMedico(String apellidoDoctor, String fechaDoc){
         Random rand = new Random();
         LocalDate fechas = LocalDate.now();
         String primerasLetrasDelApellido = apellidoDoctor.substring(0,2).toUpperCase();
-        String ultimoanoNacimiento = fechaNacimientoDoctor.substring(fechaNacimientoDoctor.length()-1).toUpperCase();
+        String ultimoanoNacimiento = fechaDoc.substring(fechaDoc.length()-1).toUpperCase();
         int anoActual = fechas.getYear();
         int numeroAleatorio = rand.nextInt(50, 700000);
         int longitudMasUno = this.listaMedicos.size() + 1;
@@ -330,6 +331,19 @@ public class Hospital {
                 System.out.println(medico.mostrarInformacion());
             }
         }if (!existenDoctors){
+            System.out.println("\nNo hay datos registrados");
+        }
+    }
+
+    public void verMisDatosAdmin(String idAdmin){
+        boolean existenAdmin = false;
+        for (Administrador administrador : this.listaAdministradores){
+            if (idAdmin.equals(administrador.getId()));{
+                existenAdmin = true;
+                System.out.println(administrador.mostrarInformacion());
+            }
+        }
+        if (!existenAdmin){
             System.out.println("\nNo hay datos registrados");
         }
     }
