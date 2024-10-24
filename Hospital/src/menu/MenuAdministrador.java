@@ -3,6 +3,7 @@ package menu;
 import consultas.Consultas;
 import consultorios.Consultorio;
 import hospital.Hospital;
+import usuarios.Usuario;
 import usuarios.administrador.Administrador;
 import usuarios.medicos.Medico;
 import usuarios.pacientes.Paciente;
@@ -48,7 +49,7 @@ public class MenuAdministrador {
 
                 String id = hospital.generarIdPaciente();
 
-                ArrayList<String>datosPAciente = this.obtenerDatosComun(Rol.PACIENTE);
+                ArrayList<String>datosPAciente = this.obtenerDatosComun(Rol.PACIENTE, hospital);
                 String nombre = datosPAciente.get(0);
                 String apellido = datosPAciente.get(1);
                 LocalDate fechaNacimiento = LocalDate.parse(datosPAciente.get(2));
@@ -71,7 +72,7 @@ public class MenuAdministrador {
                 break;
             case 3:
 
-                ArrayList<String>datosMedico = this.obtenerDatosComun(Rol.MEDICO);
+                ArrayList<String>datosMedico = this.obtenerDatosComun(Rol.MEDICO, hospital);
                 String nombreDoctor = datosMedico.get(0);
                 String apellidoDoctor = datosMedico.get(1);
                 LocalDate fechaDoc = LocalDate.parse(datosMedico.get(2));
@@ -271,7 +272,7 @@ public class MenuAdministrador {
         }
     }
 
-    private ArrayList<String> obtenerDatosComun(Rol rol){
+    private ArrayList<String> obtenerDatosComun(Rol rol, Hospital hospital){
         ArrayList<String> datosEnComun= new ArrayList<>();
         String tipoUsuario = rol == Rol.PACIENTE ? "paciente" : rol == Rol.MEDICO ? "medico" : "administrador";
 
@@ -282,33 +283,58 @@ public class MenuAdministrador {
         System.out.println(String.format("Ingresa los datos del %s: ", tipoUsuario));
         String apellido = sc.next();
         datosEnComun.add(apellido);
-        System.out.println(String.format("Ingresa los datos del %s: ", tipoUsuario));
-        int anio = sc.nextInt();
-        System.out.println(String.format("Ingresa los datos del %s: ", tipoUsuario));
-        int mes = sc.nextInt();
-        System.out.println(String.format("Ingresa los datos del %s: ", tipoUsuario));
-        int dia = sc.nextInt();
 
-        LocalDate fechaNacimiento = LocalDate.of(anio, mes, dia);
-        datosEnComun.add(fechaNacimiento.toString());
+        datosEnComun.add(obtenerFechaNacimientoUsuario(tipoUsuario));
 
 
-        String telefono = null;
-        while(telefono == null){
-            System.out.println(String.format("Ingresa los datos del %s: ", tipoUsuario));
-            telefono = sc.next();
+        boolean esTelefonoValido = false;
+        String telefono = "";
+        while(!esTelefonoValido){
+            System.out.println(String.format("Ingresa el telefono del %s: ", tipoUsuario));
+             telefono = sc.next();
+            esTelefonoValido = validarTelefonoRepetido(rol == Rol.PACIENTE ? hospital.listaPacientes : hospital.listaMedicos, tipoUsuario);
+        }
             datosEnComun.add(telefono);
 
-
-            if(hospital.telefonoPaciente(telefono)){
-                System.out.println("ingresa otro numero, ya que este ya esta registrado");
-                telefono = null;
-            }
-        }
 
         System.out.println(String.format("Ingresa los datos del %s: ", tipoUsuario));
         String contrasenia = sc.next();
         datosEnComun.add(contrasenia);
         return datosEnComun;
     }
+
+    private String obtenerFechaNacimientoUsuario(String tipoUsuario){
+        boolean esFechaValida = false;
+        LocalDate fechaNacimiento = LocalDate.now();
+        while (!esFechaValida){
+            System.out.println(String.format("Ingresa los datos del %s: ", tipoUsuario));
+            int anio = sc.nextInt();
+            System.out.println(String.format("Ingresa los datos del %s: ", tipoUsuario));
+            int mes = sc.nextInt();
+            System.out.println(String.format("Ingresa los datos del %s: ", tipoUsuario));
+            int dia = sc.nextInt();
+
+            fechaNacimiento = LocalDate.of(anio, mes, dia);
+
+            if(fechaNacimiento.isAfter(LocalDate.now())){
+                System.out.println("La decha de nacimiento no puede ser posterior al dia de hoy, intenta nuevamente");
+            }else {
+                esFechaValida = true;
+            }
+
+        }
+        return fechaNacimiento.toString();
+    }
+    //generico
+    private boolean validarTelefonoRepetido(ArrayList<? extends Usuario>listaUsuarios, String telefono){
+        for (Usuario usuario : listaUsuarios){
+            if(usuario.getTelefono().equals(telefono)){
+                System.out.println("El telefono ya esta registrado, intenta de nuevo");
+                return false;
+            }
+        }
+        return true;
+    }
+
+    //hacer lo mismo con un nuevo atributo en correo en hospital
 }
