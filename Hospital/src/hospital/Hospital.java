@@ -33,14 +33,14 @@ public class Hospital {
 
   public Hospital (){
       LocalDate fechaNacimiento = LocalDate.of(1999, 11, 05);
-        Administrador administrador= new Administrador("Ad-01", "Josue", "Marquez", fechaNacimiento, "4432353695",
-                "123", Rol.ADMIN, "15000","serg8678", "15");
+        Administrador administrador= new Administrador("A", "Josue", "Marquez", fechaNacimiento, "4432353695",
+                "Admin@", "1", Rol.ADMIN,"1500","adm1","10");
         this.listausuarios.add(administrador);
         this.listaAdministradores.add(administrador);
 
       LocalDate fechaNacimiento1 = LocalDate.of(1978, 9, 22);
       Medico medico = new Medico("D1","Lilia","Ambriz",fechaNacimiento1,"65431987987",
-              "1","sdfsdfdsf", Rol.MEDICO);
+              "Medico@","1", "asdf5",Rol.MEDICO);
       this.listaMedicos.add(medico);
       this.listausuarios.add(medico);
     }
@@ -391,6 +391,16 @@ public class Hospital {
         Expediente expediente = new Expediente(consulta,observaciones);
         paciente.registrarExpediente(expediente);
         System.out.println("Consulta finalizada");
+    }
+
+    public boolean validarEmailRepetido(ArrayList<? extends Usuario>listaUsuarios, String email){
+        for (Usuario usuario : listaUsuarios){
+            if(usuario.getEmail().equals(email)){
+                System.out.println("Este email ya esta registrado, intenta de nuevo");
+                return false;
+            }
+        }
+        return true;
     }
 
 }

@@ -9,6 +9,6 @@ public class Main {
         menu.login();
 
     }
-    //Usuario:Ad-01
+    //Admin:A
     //Contrasenia:123
 }

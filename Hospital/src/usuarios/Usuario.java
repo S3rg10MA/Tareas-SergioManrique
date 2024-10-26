@@ -12,15 +12,17 @@ public class Usuario {
     public String apellido;
     public LocalDate fechaNacimiento;
     public String telefono;
+    public String email;
     private String contrasenia;
     public Rol rol; //enum
 
-    public Usuario(String id, String nombre, String apellido, LocalDate fechaNacimiento, String telefono, String constrasenia, Rol rol) {
+    public Usuario(String id, String nombre, String apellido, LocalDate fechaNacimiento, String telefono, String email,String constrasenia, Rol rol) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
         this.fechaNacimiento = fechaNacimiento;
         this.telefono = telefono;
+        this.email = email;
         this.contrasenia = constrasenia;
         this.rol = rol;
 
@@ -28,7 +30,7 @@ public class Usuario {
 
     protected String mostrarInformacion(){
         String nombreCompleto= this.nombre+ " " + this.apellido;
-        String datos = String.format("\n Id %s, nombre Completo: %s, fecha de Nacimiento: %s, telefono: %s", id, nombreCompleto, fechaNacimiento, telefono);
+        String datos = String.format("\n Id %s, nombre Completo: %s, fecha de Nacimiento: %s, telefono: %s, email: %s", id, nombreCompleto, fechaNacimiento, telefono, email);
         return datos;
     }
 
@@ -49,6 +51,9 @@ public class Usuario {
 
     public String getTelefono() {
         return telefono;
+    }
+    public String getEmail() {
+        return email;
     }
     public String getContrasenia(){
         return contrasenia;

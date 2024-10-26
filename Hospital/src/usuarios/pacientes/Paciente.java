@@ -16,8 +16,8 @@ public class Paciente extends Usuario {
     public Random random = new Random();
     public ArrayList<Expediente> expedientes;
 
-    public Paciente(String id, String nombre, String apellido, LocalDate fechaNacimiento, String telefono, String tipoSangre, Character sexo, String contrasenia) {
-        super(id, nombre, apellido, fechaNacimiento, telefono,contrasenia ,Rol.PACIENTE);
+    public Paciente(String id, String nombre, String apellido, LocalDate fechaNacimiento, String telefono, String emailPaciente,String tipoSangre, Character sexo, String contrasenia) {
+        super(id, nombre, apellido, fechaNacimiento, telefono, emailPaciente,contrasenia ,Rol.PACIENTE);
         this.tipoSangre = tipoSangre;
         this.sexo = sexo;
     }

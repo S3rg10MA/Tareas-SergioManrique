@@ -9,6 +9,7 @@ import usuarios.medicos.Medico;
 import usuarios.pacientes.Paciente;
 import usuarios.utils.Rol;
 
+import java.sql.SQLOutput;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -54,7 +55,8 @@ public class MenuAdministrador {
                 String apellido = datosPAciente.get(1);
                 LocalDate fechaNacimiento = LocalDate.parse(datosPAciente.get(2));
                 String telefono = datosPAciente.get(3);
-                String contrasenia = datosPAciente.get(4);
+                String emailPaciente = datosPAciente.get(4);
+                String contrasenia = datosPAciente.get(5);
 
 
                 System.out.println("Ingresa el tipo de sangre del Paciente");
@@ -62,7 +64,7 @@ public class MenuAdministrador {
                 System.out.println("Ingresa el sexo del Paciente");
                 char sexo = sc.next().charAt(0);
 
-                Paciente paciente = new Paciente(id, nombre, apellido, fechaNacimiento, telefono,tipoSangre, sexo, contrasenia);
+                Paciente paciente = new Paciente(id, nombre, apellido, fechaNacimiento, telefono,emailPaciente,tipoSangre, sexo, contrasenia);
                 hospital.registrarPaciente(paciente);
                 System.out.println("Datos del Paciente registrados Correctamente");
                 break;
@@ -77,7 +79,8 @@ public class MenuAdministrador {
                 String apellidoDoctor = datosMedico.get(1);
                 LocalDate fechaDoc = LocalDate.parse(datosMedico.get(2));
                 String telefonoDoctor = datosMedico.get(3);
-                String contraseniaDoc = datosMedico.get(4);
+                String emailMedico = datosMedico.get(4);
+                String contraseniaDoc = datosMedico.get(5);
 
 
                 String rfc = null;
@@ -91,7 +94,7 @@ public class MenuAdministrador {
                 }
 
                 String idMedico = hospital.generarIdMedico(apellidoDoctor, String.valueOf(fechaDoc));
-                Medico medico = new Medico(idMedico, nombreDoctor,apellidoDoctor,fechaDoc,telefonoDoctor,contraseniaDoc,rfc, Rol.MEDICO);
+                Medico medico = new Medico(idMedico, nombreDoctor,apellidoDoctor,fechaDoc,telefonoDoctor,emailMedico,contraseniaDoc,rfc, Rol.MEDICO);
                 hospital.registrarMedico(medico);
                 System.out.println("Datos del Doctor registrados Correctamente");
 
@@ -236,6 +239,9 @@ public class MenuAdministrador {
                         telefonoAdmin = null;
                     }
                 }
+                System.out.println("Ingresa un email");
+                String emailAdmin = sc.next();
+
                 System.out.println("Ingresa una contrasenia");
                 String contraseniaAdmin = sc.next();
 
@@ -254,7 +260,7 @@ public class MenuAdministrador {
                 System.out.println("Cuantos anios trabajados llevas");
                 String aniosAdmin = sc.next();
                 String idAdmin = hospital.generarIdAdmin(String.valueOf(fechaNacAdmin));
-                Administrador  administrador1 = new Administrador(idAdmin,nombreAdmin,apellidoAdmin,fechaNacAdmin,telefonoAdmin,contraseniaAdmin,Rol.ADMIN,sueldoAdmin,rfcAdmin,aniosAdmin);
+                Administrador  administrador1 = new Administrador(idAdmin,nombreAdmin,apellidoAdmin,fechaNacAdmin,telefonoAdmin,emailAdmin,contraseniaAdmin,Rol.ADMIN,sueldoAdmin,rfcAdmin,aniosAdmin);
                 hospital.registrarAdministrador(administrador1);
                 System.out.println("Datos del Admin registrados Correctamente");
 
@@ -274,13 +280,14 @@ public class MenuAdministrador {
 
     private ArrayList<String> obtenerDatosComun(Rol rol, Hospital hospital){
         ArrayList<String> datosEnComun= new ArrayList<>();
+
         String tipoUsuario = rol == Rol.PACIENTE ? "paciente" : rol == Rol.MEDICO ? "medico" : "administrador";
 
-        System.out.println(String.format("Ingresa los datos del %s: ", tipoUsuario));
+        System.out.println(String.format("Ingresa el nombre del %s: ", tipoUsuario));
         String nombre = sc.next();
         datosEnComun.add(nombre);
 
-        System.out.println(String.format("Ingresa los datos del %s: ", tipoUsuario));
+        System.out.println(String.format("Ingresa el apellido del %s: ", tipoUsuario));
         String apellido = sc.next();
         datosEnComun.add(apellido);
 
@@ -292,12 +299,21 @@ public class MenuAdministrador {
         while(!esTelefonoValido){
             System.out.println(String.format("Ingresa el telefono del %s: ", tipoUsuario));
              telefono = sc.next();
-            esTelefonoValido = validarTelefonoRepetido(rol == Rol.PACIENTE ? hospital.listaPacientes : hospital.listaMedicos, tipoUsuario);
+            esTelefonoValido = validarTelefonoRepetido(rol == Rol.PACIENTE ? hospital.listaPacientes : hospital.listaMedicos, telefono);
         }
             datosEnComun.add(telefono);
 
+        boolean emailValido = false;
+        String email = "";
+        while (!emailValido){
+            System.out.println(String.format("Ingresa el email del %s: ", tipoUsuario));
+            email = sc.next();
+            emailValido = hospital.validarEmailRepetido(rol == Rol.PACIENTE ? hospital.listaPacientes : hospital.listaMedicos, email);
+        }
+        datosEnComun.add(email);
 
-        System.out.println(String.format("Ingresa los datos del %s: ", tipoUsuario));
+
+        System.out.println(String.format("Ingresa la contrasenia del %s: ", tipoUsuario));
         String contrasenia = sc.next();
         datosEnComun.add(contrasenia);
         return datosEnComun;
@@ -307,17 +323,17 @@ public class MenuAdministrador {
         boolean esFechaValida = false;
         LocalDate fechaNacimiento = LocalDate.now();
         while (!esFechaValida){
-            System.out.println(String.format("Ingresa los datos del %s: ", tipoUsuario));
+            System.out.println(String.format("Ingresa el anio de nacimiento del %s: ", tipoUsuario));
             int anio = sc.nextInt();
-            System.out.println(String.format("Ingresa los datos del %s: ", tipoUsuario));
+            System.out.println(String.format("Ingresa el mes de nacimiento del %s: ", tipoUsuario));
             int mes = sc.nextInt();
-            System.out.println(String.format("Ingresa los datos del %s: ", tipoUsuario));
+            System.out.println(String.format("Ingresa el dia de naciemiento del %s: ", tipoUsuario));
             int dia = sc.nextInt();
 
             fechaNacimiento = LocalDate.of(anio, mes, dia);
 
             if(fechaNacimiento.isAfter(LocalDate.now())){
-                System.out.println("La decha de nacimiento no puede ser posterior al dia de hoy, intenta nuevamente");
+                System.out.println("La fecha de nacimiento no puede ser posterior al dia de hoy, intenta nuevamente");
             }else {
                 esFechaValida = true;
             }
@@ -336,5 +352,5 @@ public class MenuAdministrador {
         return true;
     }
 
-    //hacer lo mismo con un nuevo atributo en correo en hospital
+    //hacer lo mismo con un nuevo atributo en correo en hospital, pero en esta raam
 }
