@@ -1,54 +1,53 @@
-import java.io.File;
-import java.io.FileNotFoundException;
+
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+//Sergio
+        Scanner sc = new Scanner(System.in);
+        boolean datosValidos = false;
 
-       /* try {
-            String palabra = "hoola";
-            int numero;
+        while (!datosValidos) {
+            try {
+                System.out.println("Ingresa el nombre del Producto: ");
+                String nombre = sc.nextLine();
 
-            numero = Integer.parseInt(palabra);
-        }catch (Exception e) {
-            System.out.println("Este proceso no se puede hacer, no puedes convertir una palabra a entero");
-            System.out.println(e);
-        }finally {
-            int a = 2;
-            int b = 9;
-            int suma = a + b;
+                System.out.println("Ingresa el precio de cada producto: ");
+                double precio = sc.nextDouble();
 
-            System.out.println("La suma es: " + suma);
-        }*/
+                System.out.println("Ingresa la cantidad de producto que tienes: ");
+                int cantidad = sc.nextInt();
 
-        try {
-            int a = 20;
-            int b = 0;
-        }catch (ArithmeticException e) {
-            System.out.println("Division entre 0 "+ e);
+                Producto producto = new Producto(nombre, precio, cantidad);
+                producto.calcularValorTotal();
+                System.out.println(producto.mostrarDetalles());
+
+                datosValidos = true;
+
+            } catch (ProductoInvalidoException | PrecioInvalidoException | CantidadInvalidaException e) {
+                System.out.println("Error!!! " + e.getMessage());
+                sc.nextLine();
+            } catch (Exception e) {
+                System.out.println("Entrada inválida. Asegúrate de ingresar los datos correctamente.");
+                sc.nextLine();
+            }
         }
+        //Primer intento y solo quise agregar el while
+        /* try {
+                System.out.println("Ingresa el nombre del Producto: ");
+                String nombre = sc.nextLine();
+            System.out.println("Ingresa el precio de cada producto: ");
+            double precio = sc.nextDouble();
+            System.out.println("Ingresa la cantidad de producto que tienes: ");
+            int cantidad = sc.nextInt();
 
-        try {
-            String text = null;
-            System.out.println(text.length());
-        }catch (NullPointerException e) {
-            System.out.println("Valor null: "+ e);
+            Producto producto = new Producto(nombre, precio, cantidad);
+            producto.calcularValorTotal();
+            System.out.println(producto.mostrarDetalles());
+
         }
-
-        try {
-            int [] a = new int [3];
-            a[0]=0;
-            a[1]=3;
-            a[2]=3;
-            System.out.println("Valor: "+a[5]);
-        }catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("Fuera de rango "+ e);
-        }
-
-        try {
-            Scanner a = new Scanner(new File("archivo.txt"));
-        }catch (FileNotFoundException e) {
-            System.out.println("Division entre 0 "+ e);
-        }//hello
+        catch (ProductoInvalidoException| PrecioInvalidoException| CantidadInvalidaException e) {
+            System.out.println("Error!!! "+e.getMessage());
+            }*/
     }
 }
