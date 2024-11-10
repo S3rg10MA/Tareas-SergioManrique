@@ -1,53 +1,60 @@
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
 //Sergio
         Scanner sc = new Scanner(System.in);
-        boolean datosValidos = false;
 
-        while (!datosValidos) {
-            try {
-                System.out.println("Ingresa el nombre del Producto: ");
-                String nombre = sc.nextLine();
+        Habitacion habitacion = new Habitacion();
 
-                System.out.println("Ingresa el precio de cada producto: ");
-                double precio = sc.nextDouble();
+        ArrayList<Habitacion> habitaciones = new ArrayList<>();
+        habitaciones.add(new Habitacion("Individual", 50.0));
+        habitaciones.add(new Habitacion("Doble", 75.0));
+        habitaciones.add(new Habitacion("Suite", 150.0));
 
-                System.out.println("Ingresa la cantidad de producto que tienes: ");
-                int cantidad = sc.nextInt();
+        int opcion = 0;
+        while (opcion != 4) {
+            System.out.println("\n---Sistema de Reserva de Habitaciones:---\n");
+            System.out.println("1.- Mostrar detalles de las habitaciones");
+            System.out.println("2.- Realizar una reserva");
+            System.out.println("3.- Liberrar una habitacion");
+            System.out.println("4.- Salir");
+            opcion = sc.nextInt();
 
-                Producto producto = new Producto(nombre, precio, cantidad);
-                producto.calcularValorTotal();
-                System.out.println(producto.mostrarDetalles());
+            switch (opcion) {
+                case 1:
+                    for (Habitacion habitacions : habitaciones) {
+                        habitacion.mostrarDetalles();
+                    }
+                    break;
+                    case 2:
 
-                datosValidos = true;
+                        try {
+                            System.out.println("\nSelecciona el numero del tipo de habitacion que deseas: \n1.-Individual. \n2.- Doble. \n3.- Suite");
+                            String tipo = sc.next();
+                            System.out.println("Ingresa cuantas noches deseas la habitacion ");
+                            int Noche = sc.nextInt();
 
-            } catch (ProductoInvalidoException | PrecioInvalidoException | CantidadInvalidaException e) {
-                System.out.println("Error!!! " + e.getMessage());
-                sc.nextLine();
-            } catch (Exception e) {
-                System.out.println("Entrada inválida. Asegúrate de ingresar los datos correctamente.");
-                sc.nextLine();
+                            habitacion = new Habitacion(tipo, Noche);
+
+                        } catch (HabitacionNoDisponibleException | NumeroDeNochesInvalidoException e) {
+                            System.out.println(e.getMessage());
+                            }
+                        System.out.println("Reservacion hecha correctamente");
+
+                        break;
+                        case 3:
+
+                            break;
+                            case 4:
+                                System.out.println("Hasta Luego");
+                                return;
+                                default:
+                                    System.out.println("Opcion no valida");
+                                    break;
             }
         }
-        //Primer intento y solo quise agregar el while
-        /* try {
-                System.out.println("Ingresa el nombre del Producto: ");
-                String nombre = sc.nextLine();
-            System.out.println("Ingresa el precio de cada producto: ");
-            double precio = sc.nextDouble();
-            System.out.println("Ingresa la cantidad de producto que tienes: ");
-            int cantidad = sc.nextInt();
-
-            Producto producto = new Producto(nombre, precio, cantidad);
-            producto.calcularValorTotal();
-            System.out.println(producto.mostrarDetalles());
-
-        }
-        catch (ProductoInvalidoException| PrecioInvalidoException| CantidadInvalidaException e) {
-            System.out.println("Error!!! "+e.getMessage());
-            }*/
     }
 }
