@@ -1,74 +1,55 @@
-import java.util.ArrayList;
+
 import java.util.Scanner;
 import java.io.*;
 
 public class Main {
     public static void main(String[] args) {
 
-       /* try (BufferedWriter nuevo = new BufferedWriter(new FileWriter(("Prueba.txt")))){
+        Scanner sc = new Scanner(System.in);
 
-            nuevo.write("Este es el primer archivo creado\n");
-            nuevo.write("Hello\n");
-            nuevo.write("Tercera linea");
 
-        }catch (IOException e){
-            System.out.println("Error al leer el archivo"+e);
-        }
+        int opcion = 0;
+        while (opcion !=3){
+            System.out.println("\n****Bienvenido****");
+            System.out.println("1.- Escribir tarea.");
+            System.out.println("2.- Leer tareas.");
+            System.out.println("3.- Salir.");
+            System.out.println("Selecciona una opcion:");
+            opcion = Integer.parseInt(sc.nextLine());
 
-        //leer archivo
+            switch (opcion){
+                case 1:
+                    System.out.println("Has seleccionado la opcion de escribir tarea.");
+                    System.out.println("Escribe la tarea que deseas: ");
+                    try (FileWriter writer = new FileWriter("Tareas.txt",true); BufferedWriter Tareas = new BufferedWriter(writer)){
 
-        try (BufferedReader leer = new BufferedReader(new FileReader("Prueba txt"))) {
+                        String Tarea = sc.nextLine();
+                        Tareas.write(Tarea+"\n");
 
-            String lectura;
+                    }catch (Exception e){
+                        System.out.println("Error al tratar de escribir el archivo "+e.getMessage());
+                    }
+                    break;
+                    case 2:
+                        System.out.println("Aqui estan las tareas registradas:\n");
 
-            while ((lectura = leer.readLine()) != null) {
-                System.out.println(lectura);
+                        try (BufferedReader Leer = new BufferedReader(new FileReader("Tareas.txt"))) {
+                            String lectura;
+                            while ((lectura = Leer.readLine()) != null) {
+                                System.out.println(lectura+"\n");
+                            }
+
+                        }catch (Exception e){
+                            System.out.println("\nError al intentar leer el archivo "+e.getMessage());
+                        }
+                        break;
+                        case 3:
+                            System.out.println("Hasta Luego");
+                            return;
+                            default:
+                                System.out.println(" ERROR!!!!! Ingresa una opcion valida");
+                                break;
             }
-
-        }catch (IOException e){
-            System.out.println("Error al leer el archivo" +e.getMessage());
-        }*/
-        //escribir binario
-       /* byte [] a= {1,2,3,4,5,6,7,8,9};
-        try (BufferedOutputStream bis = new BufferedOutputStream(new FileOutputStream("pruebaBinario.dat"))){
-
-            bis.write(a);
-            System.out.println("Se sgrego la informacion al archivo");
-
-        }catch (Exception e) {
-            System.out.println("Error al leer el erchivo"+e.getMessage());
-        }
-
-        //leer el archivo binario
-        try (BufferedInputStream bis2 = new BufferedInputStream(new FileInputStream("pruebaBinario.dat"))){
-
-            int b= 0;
-
-            while ((b=bis2.read())!=-1){
-                System.out.println(b);
-            }
-
-        }catch (Exception e) {
-            System.out.println("Error al leer el erchivo"+e.getMessage());
-        }*/
-//sobreescribir el archivo
-        try (FileWriter writer = new FileWriter("Prueba txt",true); BufferedWriter otro = new BufferedWriter(writer)) {
-
-
-            otro.write("\nOtra sentencia");
-
-        }catch (Exception e) {
-            System.out.println("Error al sobreescribir el archivo "+ e.getMessage());
-        }
-        //leer
-        try (BufferedReader leer = new BufferedReader(new FileReader("Prueba txt"))) {
-            String lectura;
-            while ((lectura = leer.readLine()) != null) {
-                System.out.println(lectura);
-            }
-
-        }catch (Exception e) {
-            System.out.println("Error al escribir el archivo "+ e.getMessage());
         }
     }
 }
